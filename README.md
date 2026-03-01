@@ -1,73 +1,121 @@
-# React + TypeScript + Vite
+# 🧬 Pokédex — React + TypeScript
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, minimalist Pokédex built with:
 
-Currently, two official plugins are available:
+- ⚛️ React
+- 🟦 TypeScript
+- 🎨 TailwindCSS
+- 🧩 shadcn/ui
+- 🔗 PokeAPI
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🚀 Project Goal
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+To build a clean, scalable, and production-quality Pokédex application while strengthening:
 
-## Expanding the ESLint configuration
+- API data handling
+- Component architecture
+- Responsive layout design
+- UI/UX decisions
+- Theme system implementation
+- Real-world frontend structuring
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+This project is being built progressively and intentionally — focusing on clean structure over speed.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 📦 Current Features
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+✅ Pokémon card component  
+✅ Responsive card grid wrapper  
+✅ Fetch API helper abstraction  
+✅ Clean project initialization  
+⬜ Pokémon details page  
+⬜ Evolution chain integration  
+⬜ Stats visualization  
+⬜ Type weakness logic  
+⬜ Theme toggle (planned)  
+⬜ Pagination / Infinite Scroll
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🧱 Architecture Decisions
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Component Structure
+
+- `PokemonCard` → Pure UI component
+- `PokemonCards` → Layout wrapper (grid system)
+
+Separation of concerns applied early.
+
+---
+
+## 📜 Commit History Progress
+
+### 🟢 Initial Setup
+
+**Commit:** `3ac33ad`  
+📅 March 1, 2026
+
+> Initialize repository
+
+---
+
+### 🧰 Fetch Abstraction
+
+**Commit:** `62bf6f7`  
+📅 March 2, 2026
+
+> Created fetch API helper
+
+Purpose:
+
+- Centralized API logic
+- Prevent duplicated fetch patterns
+- Prepare for scalable data layer
+
+---
+
+### 🛟 Safety Snapshot
+
+**Commit:** `09959fc`  
+📅 March 2, 2026
+
+> Save before disaster
+
+---
+
+### 🧩 Core UI Components
+
+**Commit:** `45cbc0b`  
+📅 March 2, 2026
+
+> Created PokemonCard & PokemonCards component
+
+- Minimalist card design
+- Responsive grid layout
+- Theme-ready structure
+- Clean data typing
+
+---
+
+## 🎨 Design Philosophy
+
+Minimal first.
+
+No heavy gradients.
+No unnecessary glow.
+Theme-toggle friendly.
+
+The goal is long-term maintainability and professional presentation.
+
+---
+
+## 📐 Responsive Strategy
+
+Using modern CSS Grid:
+
+```css
+grid-cols-[repeat(auto-fit,minmax(280px,1fr))]
 ```
