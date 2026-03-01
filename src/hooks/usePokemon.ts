@@ -13,10 +13,18 @@ export function usePokemon(limit: number) {
       try {
         await new Promise((resolve) => setTimeout(resolve, 2000));
         setLoading(true);
-        const data = await fetchAPI(`?limit=${limit}`, {
+        const data = await fetchAPI(`/pokemon?limit=${limit}`, {
           signal: controller.signal,
         });
-        setPokemons(data);
+
+        // use pokemon-form instead of pokemon to reduce size
+        const d = data.results.map(
+          async (pokemon: Pokemon) =>
+            await fetchAPI(`pokemon-form/${pokemon.name}`),
+        );
+
+        const p = await Promise.all(d);
+        setPokemons(p);
       } catch (error) {
         // btw, this is a type guard :)
         if (typeof error === "string") {
