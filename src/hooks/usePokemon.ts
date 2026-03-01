@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import type { Pokemon } from "../types/pokemon";
+import type { TPokemon } from "../types/pokemon";
 import { fetchAPI } from "../lib/api";
 
 export function usePokemon(limit: number) {
-  const [pokemons, setPokemons] = useState<Pokemon[]>([]);
+  const [pokemons, setPokemons] = useState<TPokemon[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -18,10 +18,13 @@ export function usePokemon(limit: number) {
         });
 
         // use pokemon-form instead of pokemon to reduce size
-        const d = data.results.map(
-          async (pokemon: Pokemon) =>
-            await fetchAPI(`pokemon-form/${pokemon.name}`),
-        );
+        const d = data.results.map(async (pokemon: TPokemon) => {
+          const p = await fetchAPI(`pokemon/${pokemon.name}`);
+          return {
+            ...p,
+            img: p.sprites.other["official-artwork"].front_default,
+          };
+        });
 
         const p = await Promise.all(d);
         setPokemons(p);
