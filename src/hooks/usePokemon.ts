@@ -11,7 +11,6 @@ export function usePokemon(limit: number) {
     const controller = new AbortController();
     async function getPokemons() {
       try {
-        await new Promise((resolve) => setTimeout(resolve, 2000));
         setLoading(true);
         const data = await fetchAPI(`/pokemon?limit=${limit}`, {
           signal: controller.signal,
