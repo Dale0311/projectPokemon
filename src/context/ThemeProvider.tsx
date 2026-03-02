@@ -7,16 +7,8 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const applyTheme = (themeState: TTheme) => {
     const root = document.documentElement;
 
-    const systemDark = window.matchMedia(
-      "(prefers-color-scheme: dark)",
-    ).matches;
-
-    // nested ternary operator
-    const finalTheme: TTheme =
-      themeState === "system" ? (systemDark ? "dark" : "light") : themeState;
-
     root.classList.remove("light", "dark");
-    root.classList.add(finalTheme);
+    root.classList.add(themeState);
   };
 
   const setTheme = (themeState: TTheme) => {
@@ -27,15 +19,17 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme") as TTheme | null;
-    if (savedTheme) {
-      async function loadTheme(savedTheme: TTheme) {
-        setThemeState(savedTheme);
-        applyTheme(savedTheme);
-      }
-      loadTheme(savedTheme);
-    } else {
-      applyTheme("system");
+    async function loadTheme(savedTheme: TTheme | null) {
+      const systemDark = window.matchMedia(
+        "(prefers-color-scheme: dark)",
+      ).matches;
+      const finalTheme = systemDark ? "dark" : "light";
+
+      //use saveTheme if exist otherwise use finalTheme
+      setThemeState(savedTheme ?? finalTheme);
+      applyTheme(savedTheme ?? finalTheme);
     }
+    loadTheme(savedTheme);
   }, []);
 
   return (

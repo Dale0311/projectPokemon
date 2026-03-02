@@ -13,9 +13,7 @@ const App = () => {
     <>
       <button
         onClick={() => {
-          console.log(themeState);
-
-          const newTheme = themeState != "dark" ? "dark" : "light";
+          const newTheme = themeState == "dark" ? "light" : "dark";
           setTheme(newTheme);
         }}
         className="bg-[firebrick] text-white py-2 px-4 rounded"
