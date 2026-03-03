@@ -1,4 +1,3 @@
-import { useTheme } from "../hooks/useTheme";
 import { cn } from "../lib/utils";
 import type { TPokemon } from "../types/pokemon";
 
@@ -7,8 +6,7 @@ type Props = {
   onClick?: (pokemon: TPokemon) => void;
 };
 
-export default function PokemonCard({ pokemon, onClick }: Props) {
-  const { themeState } = useTheme();
+export default function PokemonCard({ pokemon }: Props) {
   return (
     <div
       className={cn(
@@ -17,7 +15,6 @@ export default function PokemonCard({ pokemon, onClick }: Props) {
         "cursor-pointer overflow-hidden",
       )}
     >
-      <p>{themeState}</p>
       {/* Image Section */}
       <div className="flex items-center justify-center p-8 border-b bg-muted/30">
         <img
