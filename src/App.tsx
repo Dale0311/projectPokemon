@@ -1,26 +1,17 @@
 import { usePokemon } from "./hooks/usePokemon";
 import PokemonCards from "./components/PokemonCards";
-import { useTheme } from "./hooks/useTheme";
+import { ThemeSwitch } from "./components/ThemeSwitch";
 
 const App = () => {
   const { loading, pokemons } = usePokemon(20);
-  const { themeState, setTheme } = useTheme();
   if (loading) {
     return <h1>fetching data...</h1>;
   }
 
   return (
     <>
-      <button
-        onClick={() => {
-          const newTheme = themeState == "dark" ? "light" : "dark";
-          setTheme(newTheme);
-        }}
-        className="bg-[firebrick] text-white py-2 px-4 rounded"
-      >
-        Toggle
-      </button>
-      <div className="flex justify-center p-4 border">
+      <div className="p-4 border mx-auto">
+        <ThemeSwitch />
         <PokemonCards pokemons={pokemons} />
       </div>
     </>

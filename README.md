@@ -1,121 +1,187 @@
-# 🧬 Pokédex — React + TypeScript
+# 🧬 Pokédex — Developer Build Log
 
-A modern, minimalist Pokédex built with:
+A Pokédex built with **React + TypeScript**, created as part of my journey toward becoming a stronger frontend engineer.
+
+🔗 **Live Site:**  
+[https://dale0311.github.io/projectPokemon/](https://dale0311.github.io/projectPokemon/)
+
+---
+
+## 🛠 Tech Stack
 
 - ⚛️ React
 - 🟦 TypeScript
 - 🎨 TailwindCSS
 - 🧩 shadcn/ui
 - 🔗 PokeAPI
+- 🚀 GitHub Pages (deployment)
 
 ---
 
-## 🚀 Project Goal
+## 🎯 Why I’m Building This
 
-To build a clean, scalable, and production-quality Pokédex application while strengthening:
+After revisiting core JavaScript fundamentals, I wanted to build something:
 
-- API data handling
-- Component architecture
-- Responsive layout design
-- UI/UX decisions
-- Theme system implementation
-- Real-world frontend structuring
+- Practical
+- Scalable
+- Cleanly structured
+- Deployment-ready
 
-This project is being built progressively and intentionally — focusing on clean structure over speed.
+This project is not rushed.
 
----
-
-## 📦 Current Features
-
-✅ Pokémon card component  
-✅ Responsive card grid wrapper  
-✅ Fetch API helper abstraction  
-✅ Clean project initialization  
-⬜ Pokémon details page  
-⬜ Evolution chain integration  
-⬜ Stats visualization  
-⬜ Type weakness logic  
-⬜ Theme toggle (planned)  
-⬜ Pagination / Infinite Scroll
+It’s intentionally built step-by-step, treating each feature like a real-world production decision.
 
 ---
 
-## 🧱 Architecture Decisions
-
-### Component Structure
-
-- `PokemonCard` → Pure UI component
-- `PokemonCards` → Layout wrapper (grid system)
-
-Separation of concerns applied early.
+# 📖 Development Log
 
 ---
 
-## 📜 Commit History Progress
-
-### 🟢 Initial Setup
+## 🟢 March 1 — Project Initialized
 
 **Commit:** `3ac33ad`  
-📅 March 1, 2026
+Started the repository.
 
-> Initialize repository
+No fancy setup — just structure and direction.
 
 ---
 
-### 🧰 Fetch Abstraction
+## 🧰 March 2 — API Layer First
 
 **Commit:** `62bf6f7`  
-📅 March 2, 2026
+Created a fetch helper abstraction.
 
-> Created fetch API helper
+Why?
 
-Purpose:
+Because even in small projects, duplicated fetch logic becomes messy fast.  
+I wanted early separation of concerns.
 
-- Centralized API logic
-- Prevent duplicated fetch patterns
-- Prepare for scalable data layer
+Lesson:
 
----
-
-### 🛟 Safety Snapshot
-
-**Commit:** `09959fc`  
-📅 March 2, 2026
-
-> Save before disaster
+> Treat even small apps like they might grow.
 
 ---
 
-### 🧩 Core UI Components
+## 🧩 March 2 — UI Foundation
 
 **Commit:** `45cbc0b`  
-📅 March 2, 2026
+Built:
 
-> Created PokemonCard & PokemonCards component
+- `PokemonCard`
+- `PokemonCards` grid wrapper
 
-- Minimalist card design
-- Responsive grid layout
-- Theme-ready structure
-- Clean data typing
+Decisions made:
+
+- Keep cards purely presentational.
+- Grid handles layout.
+- Clean prop typing.
+
+Focus:  
+Component clarity > speed.
 
 ---
 
-## 🎨 Design Philosophy
+## 🌗 March 2 — Theme System Architecture
+
+**Commit:** `f716833`  
+Initialized `ThemeContext`.
+
+Instead of hardcoding dark mode, I built:
+
+- Global theme provider
+- `"light"` | `"dark"` | `"system"` support
+- System preference detection
+- Toggle-ready structure
+
+---
+
+## 🎛 March 2 — Theme Toggle UI
+
+**Commit:** `cac4243` → `e5c6bce`
+
+Implemented:
+
+- Toggle button
+- Proper state switching
+- System theme fallback
+- Tailwind dark mode integration
+
+What I learned:  
+Theme systems are more about architecture than styling.
+
+---
+
+## 🚀 March 3 — Deployment Struggles (GitHub Pages)
+
+Commits:
+
+- `935ca8a`
+- `385ba24`
+- `fixing build dist part#2`
+
+Problem:
+
+- MIME type error
+- Wrong asset paths
+- `dist` not loading properly
+
+Root cause:  
+Vite base path misconfiguration for GitHub Pages.
+
+Fix:  
+Proper production build + correct base configuration.
+
+Lesson:
+
+> Deployment is part of frontend engineering.  
+> If it doesn’t deploy cleanly, it’s not finished.
+
+Now live at:  
+[https://dale0311.github.io/projectPokemon/](https://dale0311.github.io/projectPokemon/)
+
+---
+
+# ✅ Current Features
+
+- Pokémon Card component
+- Responsive Grid Layout
+- Centralized Fetch Helper
+- Theme Context (light/dark/system)
+- Functional Toggle Button
+- Production Deployment
+
+---
+
+# ⏳ Planned Features
+
+- Pokémon Details Page
+- Evolution Chain
+- Stats Visualization
+- Type Weakness Logic
+- Pagination or Infinite Scroll
+- Better loading states
+- Error boundaries
+
+---
+
+# 🧠 What This Project Is Really About
+
+This isn’t just a Pokédex.
+
+It’s practice in:
+
+- Clean architecture
+- Thoughtful commits
+- Incremental improvement
+- Debugging real deployment issues
+- Writing code I’m not embarrassed to show
+
+---
+
+## 🏗 Design Philosophy
 
 Minimal first.
 
-No heavy gradients.
-No unnecessary glow.
-Theme-toggle friendly.
-
-The goal is long-term maintainability and professional presentation.
-
----
-
-## 📐 Responsive Strategy
-
-Using modern CSS Grid:
-
-```css
-grid-cols-[repeat(auto-fit,minmax(280px,1fr))]
-```
+No heavy gradients.  
+No flashy effects.  
+Just clean UI that can scale.
