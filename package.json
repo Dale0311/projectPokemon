@@ -1,18 +1,22 @@
 {
   "name": "pokemon-cards",
   "private": true,
+  "homepage": "https://dale0311.github.io/projectPokemon/",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "gh-pages": "^6.3.0",
     "lucide-react": "^0.575.0",
     "motion": "^12.34.3",
     "radix-ui": "^1.4.3",
