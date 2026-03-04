@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router";
-import Home from "./routes/home/Home";
+import Home from "@/routes/home/Home";
 
 const App = () => {
   return (

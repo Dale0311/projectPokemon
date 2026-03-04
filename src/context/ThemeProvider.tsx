@@ -1,5 +1,5 @@
 import { useEffect, useState, type ReactNode } from "react";
-import { ThemeContext, type TTheme } from "./ThemeContext";
+import { ThemeContext, type TTheme } from "@/context/ThemeContext";
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [themeState, setThemeState] = useState<TTheme>("system");

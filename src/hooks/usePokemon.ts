@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import type { TPokemon } from "../types/pokemon";
 import { fetchAPI } from "../lib/api";
+import type { TPokemon } from "@/types/pokemon";
 
 export function usePokemon(limit: number) {
   const [pokemons, setPokemons] = useState<TPokemon[]>([]);

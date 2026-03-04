@@ -1,7 +1,5 @@
-"use client";
-
-import type { TPokemon } from "../types/pokemon";
-import PokemonCard from "./PokemonCard";
+import type { TPokemon } from "@/types/pokemon";
+import PokemonCard from "@/components/PokemonCard";
 
 type Props = {
   pokemons: TPokemon[];

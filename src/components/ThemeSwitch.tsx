@@ -1,7 +1,6 @@
 import { Sun, Moon } from "lucide-react";
-import { Switch } from "./ui/switch";
-import { useTheme } from "../hooks/useTheme";
-
+import { useTheme } from "@/hooks/useTheme";
+import { Switch } from "@/components/ui/switch";
 export function ThemeSwitch() {
   const { themeState, setTheme } = useTheme();
   const isDark = themeState === "dark";
