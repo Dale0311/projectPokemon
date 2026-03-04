@@ -1,5 +1,5 @@
-import { cn } from "../lib/utils";
-import type { TPokemon } from "../types/pokemon";
+import { cn } from "@/lib/utils";
+import type { TPokemon } from "@/types/pokemon";
 
 type Props = {
   pokemon: TPokemon;
