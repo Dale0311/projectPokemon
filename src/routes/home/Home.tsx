@@ -1,6 +1,5 @@
-import PokemonCards from "../../components/PokemonCards";
-import { ThemeSwitch } from "../../components/ThemeSwitch";
-import { usePokemon } from "../../hooks/usePokemon";
+import PokemonCards from "@/components/PokemonCards";
+import { usePokemon } from "@/hooks/usePokemon";
 
 const Home = () => {
   const { loading, pokemons } = usePokemon(20);
@@ -10,8 +9,7 @@ const Home = () => {
 
   return (
     <>
-      <div className="p-4 border mx-auto">
-        <ThemeSwitch />
+      <div className="p-4 border mx-auto w-full">
         <PokemonCards pokemons={pokemons} />
       </div>
     </>
