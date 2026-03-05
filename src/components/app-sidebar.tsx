@@ -5,40 +5,65 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarTrigger,
+  useSidebar,
 } from "@/components/ui/sidebar";
 import { ArrowLeft, Home, Settings } from "lucide-react";
-import logo from "@/assets/images/pokeball-logo.png";
+import { Link } from "react-router";
+import { Button } from "@/components/ui/button";
+import { ThemeSwitch } from "@/components/ThemeSwitch";
 
 export function AppSidebar() {
+  const { toggleSidebar } = useSidebar();
   return (
     <Sidebar collapsible="icon">
       {/* HEADER */}
-      <SidebarHeader className="flex items-center justify-between p-4 border-b">
-        <img src={logo} alt="pokeball" width={42} height={42} />
-        <span className="font-semibold group-data-[collapsible=icon]:hidden">
-          Pokedex
-        </span>
-        <SidebarTrigger />
+      <SidebarHeader>
+        <div className="w-4/5 mx-auto flex items-center justify-between group-data-[state=collapsed]:flex-col group-data-[state=collapsed]:space-y-3 group-data-[state=collapsed]:mt-3">
+          <Link to=".">
+            <div className="flex items-center space-x-2">
+              <img
+                src="pokeball-logo.png"
+                alt="pokeball"
+                width={42}
+                height={42}
+              />
+              <span className="font-semibold group-data-[collapsible=icon]:hidden text-lg">
+                PokéDex
+              </span>
+            </div>
+          </Link>
+          <Button variant={"ghost"} size={"icon"} onClick={toggleSidebar}>
+            <ArrowLeft className="transition-transform group-data-[state=collapsed]:rotate-180" />
+          </Button>
+        </div>
       </SidebarHeader>
-
+      <hr className="my-2" />
       {/* CONTENT */}
       <SidebarContent>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton>
-              <Home className="h-5 w-5" />
+            <SidebarMenuButton className="w-4/5 mx-auto flex items-center">
+              <Home />
               <span className="group-data-[collapsible=icon]:hidden">Home</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
 
           <SidebarMenuItem>
-            <SidebarMenuButton>
-              <Settings className="h-5 w-5" />
+            <SidebarMenuButton className="w-4/5 mx-auto flex items-center">
+              <Settings />
               <span className="group-data-[collapsible=icon]:hidden">
                 Settings
               </span>
             </SidebarMenuButton>
+          </SidebarMenuItem>
+          <hr className="my-2" />
+          <SidebarMenuItem>
+            <div className="w-4/5 mx-auto flex items-center justify-between ">
+              <span className="text-sm group-data-[collapsible=icon]:hidden">
+                Appearance
+              </span>
+              <ThemeSwitch />
+            </div>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarContent>
