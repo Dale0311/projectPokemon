@@ -58,7 +58,7 @@ export function AppSidebar() {
           </SidebarMenuItem>
           <hr className="my-2" />
           <SidebarMenuItem>
-            <div className="w-4/5 mx-auto flex items-center justify-between ">
+            <div className="w-4/5 mx-auto flex items-center justify-between group-data-[collapsible=icon]:justify-center ">
               <span className="text-sm group-data-[collapsible=icon]:hidden">
                 Appearance
               </span>
