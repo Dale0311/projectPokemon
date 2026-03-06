@@ -19,7 +19,7 @@ export function AppSidebar() {
       {/* HEADER */}
       <SidebarHeader>
         <div className="w-4/5 mx-auto flex items-center justify-between group-data-[state=collapsed]:flex-col group-data-[state=collapsed]:space-y-3 group-data-[state=collapsed]:mt-3">
-          <Link to=".">
+          <Link to="/">
             <div className="flex items-center space-x-2">
               <img
                 src="pokeball-logo.png"
@@ -42,18 +42,30 @@ export function AppSidebar() {
       <SidebarContent>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton className="w-4/5 mx-auto flex items-center">
-              <Home />
-              <span className="group-data-[collapsible=icon]:hidden">Home</span>
+            <SidebarMenuButton
+              className="w-4/5 mx-auto flex items-center"
+              asChild
+            >
+              <Link to={"/"}>
+                <Home />
+                <span className="group-data-[collapsible=icon]:hidden">
+                  Home
+                </span>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
 
           <SidebarMenuItem>
-            <SidebarMenuButton className="w-4/5 mx-auto flex items-center">
-              <Settings />
-              <span className="group-data-[collapsible=icon]:hidden">
-                Settings
-              </span>
+            <SidebarMenuButton
+              className="w-4/5 mx-auto flex items-center"
+              asChild
+            >
+              <Link to={"/settings"}>
+                <Settings />
+                <span className="group-data-[collapsible=icon]:hidden">
+                  Settings
+                </span>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <hr className="my-2" />

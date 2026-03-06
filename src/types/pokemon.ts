@@ -1,18 +1,18 @@
 export type TPokemon = {
   id: number;
   name: string;
-  types: {
-    slot: number;
-    type: {
-      name: string;
-      url: string;
-    };
-  }[];
-  stat: {
-    base_state: number;
+  img: string;
+  types: string[];
+  stats: {
     name: string;
+    value: number;
   }[];
   height: number;
   weight: number;
-  img: string;
+
+  moves: string[];
+  abilities: {
+    name: string;
+    hidden: boolean;
+  };
 };

@@ -9,7 +9,7 @@ type Props = {
 
 export default function PokemonCard({ pokemon }: Props) {
   return (
-    <Link to={`pokemons/${pokemon.id}`}>
+    <Link to={`/pokemons/${pokemon.id}`}>
       <div
         className={cn(
           "group rounded-2xl border bg-card text-card-foreground",
@@ -37,10 +37,10 @@ export default function PokemonCard({ pokemon }: Props) {
           <div className="flex gap-2 flex-wrap">
             {pokemon.types.map((t) => (
               <span
-                key={t.slot}
+                key={t}
                 className="px-3 py-1 text-xs rounded-full bg-muted text-muted-foreground capitalize"
               >
-                {t.type.name}
+                {t}
               </span>
             ))}
           </div>

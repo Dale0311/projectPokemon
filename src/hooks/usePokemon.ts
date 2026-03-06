@@ -11,18 +11,19 @@ export function usePokemon(limit: number) {
     const controller = new AbortController();
     async function getPokemons() {
       try {
-        setLoading(true);
         const data = await fetchAPI(`/pokemon?limit=${limit}`, {
           signal: controller.signal,
         });
 
-        // use pokemon-form instead of pokemon to reduce size
         const d = data.results.map(async (pokemon: TPokemon) => {
           const p = await fetchAPI(`pokemon/${pokemon.name}`);
-          return {
-            ...p,
+          const pokemonBasic = {
+            id: p.id,
+            name: p.name,
             img: p.sprites.other["official-artwork"].front_default,
+            types: p.types.map((t: any) => t.type.name),
           };
+          return pokemonBasic;
         });
 
         const p = await Promise.all(d);
