@@ -1,7 +1,6 @@
 export type TPokemon = {
   id: number;
   name: string;
-  url?: string;
   types: {
     slot: number;
     type: {
@@ -9,5 +8,11 @@ export type TPokemon = {
       url: string;
     };
   }[];
+  stat: {
+    base_state: number;
+    name: string;
+  }[];
+  height: number;
+  weight: number;
   img: string;
 };
