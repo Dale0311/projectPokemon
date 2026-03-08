@@ -1,3 +1,38 @@
+export type TPokemonResponse = {
+  id: number;
+  name: string;
+  height: number;
+  weight: number;
+  sprites: {
+    other: {
+      "official-artwork": {
+        front_default: string;
+      };
+    };
+  };
+  types: {
+    type: {
+      name: string;
+    };
+  }[];
+  abilities: {
+    ability: {
+      name: string;
+    };
+  }[];
+  moves: {
+    move: {
+      name: string;
+    };
+  }[];
+  stats: {
+    base_stat: number;
+    stat: {
+      name: string;
+    };
+  }[];
+};
+
 export type TPokemon = {
   id: number;
   name: string;
@@ -11,8 +46,7 @@ export type TPokemon = {
   weight: number;
 
   moves: string[];
-  abilities: {
-    name: string;
-    hidden: boolean;
-  };
+  abilities: string[];
 };
+
+export type TPokemonCard = Pick<TPokemon, "id" | "name" | "img" | "types">;

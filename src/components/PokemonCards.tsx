@@ -1,12 +1,11 @@
-import type { TPokemon } from "@/types/pokemon";
+import type { TPokemonCard } from "@/types/pokemon";
 import PokemonCard from "@/components/PokemonCard";
 
 type Props = {
-  pokemons: TPokemon[];
-  onCardClick?: (pokemon: TPokemon) => void;
+  pokemons: TPokemonCard[];
 };
 
-export default function PokemonCards({ pokemons, onCardClick }: Props) {
+export default function PokemonCards({ pokemons }: Props) {
   if (!pokemons.length) {
     return (
       <div className="flex justify-center items-center py-20 text-muted-foreground">
@@ -19,11 +18,7 @@ export default function PokemonCards({ pokemons, onCardClick }: Props) {
     <section className="mx-auto px-4 sm:px-6 lg:px-8 py-5 mt-4">
       <div className="grid gap-6 grid-cols-[repeat(auto-fit,minmax(280px,1fr))]">
         {pokemons.map((pokemon) => (
-          <PokemonCard
-            key={pokemon.id}
-            pokemon={pokemon}
-            onClick={() => onCardClick?.(pokemon)}
-          />
+          <PokemonCard key={pokemon.id} pokemon={pokemon} />
         ))}
       </div>
     </section>

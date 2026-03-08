@@ -1,10 +1,9 @@
 import { cn } from "@/lib/utils";
-import type { TPokemon } from "@/types/pokemon";
+import type { TPokemonCard } from "@/types/pokemon";
 import { Link } from "react-router";
 
 type Props = {
-  pokemon: TPokemon;
-  onClick?: (pokemon: TPokemon) => void;
+  pokemon: TPokemonCard;
 };
 
 export default function PokemonCard({ pokemon }: Props) {
