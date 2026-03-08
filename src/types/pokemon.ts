@@ -33,6 +33,27 @@ export type TPokemonResponse = {
   }[];
 };
 
+export type TPokemonSpeciesResponse = {
+  flavor_text_entries: {
+    flavor_text: string;
+    language: {
+      name: string;
+    };
+  }[];
+  genera: {
+    genus: string;
+    language: {
+      name: string;
+    };
+  }[];
+};
+export type TEvolutionNode = {
+  species: {
+    name: string;
+  };
+  evolves_to: TEvolutionNode[];
+};
+
 export type TPokemon = {
   id: number;
   name: string;
@@ -47,6 +68,9 @@ export type TPokemon = {
 
   moves: string[];
   abilities: string[];
+  evolution_chain: string[];
+  flavorText: string[]; //e.g: Its newly grown legs prevent it from running. It appears to prefer swimming than trying to stand.
+  genera: string | undefined; //toad pokemon
 };
 
 export type TPokemonCard = Pick<TPokemon, "id" | "name" | "img" | "types">;
