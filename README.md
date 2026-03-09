@@ -1,187 +1,190 @@
-# 🧬 Pokédex — Developer Build Log
+# Project Pokémon
 
-A Pokédex built with **React + TypeScript**, created as part of my journey toward becoming a stronger frontend engineer.
+A Pokédex web application built with **React + TypeScript** using the **PokeAPI**.
 
-🔗 **Live Site:**  
-[https://dale0311.github.io/projectPokemon/](https://dale0311.github.io/projectPokemon/)
-
----
-
-## 🛠 Tech Stack
-
-- ⚛️ React
-- 🟦 TypeScript
-- 🎨 TailwindCSS
-- 🧩 shadcn/ui
-- 🔗 PokeAPI
-- 🚀 GitHub Pages (deployment)
+This project is part of my journey learning **modern frontend development**, focusing on React architecture, custom hooks, routing, and API data handling.
 
 ---
 
-## 🎯 Why I’m Building This
+# Live Demo
 
-After revisiting core JavaScript fundamentals, I wanted to build something:
+Netlify Deployment:
 
-- Practical
-- Scalable
-- Cleanly structured
-- Deployment-ready
-
-This project is not rushed.
-
-It’s intentionally built step-by-step, treating each feature like a real-world production decision.
+https://pokedexv26.netlify.app/
 
 ---
 
-# 📖 Development Log
+# Features
+
+### Pokédex List
+
+- Displays Pokémon in a card layout
+- Fetches data from the PokeAPI
+- Responsive layout
+
+### Pokémon Details Page
+
+Implemented dynamic routing using **React Router**.
+
+Route structure:
+
+```
+/pokemons/:id
+```
+
+Each Pokémon has its own detail page.
+
+### Theme Toggle
+
+- Light / Dark mode
+- Implemented using a **Theme Context**
+- Minimalist toggle switch
+
+### Sidebar Layout
+
+Using **shadcn/ui sidebar**
+
+Features:
+
+- Collapsible sidebar
+- Layout abstraction using `RootLayout`
 
 ---
 
-## 🟢 March 1 — Project Initialized
+# Custom Hooks
 
-**Commit:** `3ac33ad`  
-Started the repository.
+### usePokemon
 
-No fancy setup — just structure and direction.
+Responsible for:
 
----
+- Fetching Pokémon list
+- Flattening API data
+- Preparing data for UI components
 
-## 🧰 March 2 — API Layer First
+### usePokemonDetails
 
-**Commit:** `62bf6f7`  
-Created a fetch helper abstraction.
+Responsible for:
 
-Why?
+- Fetching Pokémon details
+- Preparing data for the details page
 
-Because even in small projects, duplicated fetch logic becomes messy fast.  
-I wanted early separation of concerns.
-
-Lesson:
-
-> Treat even small apps like they might grow.
+Separating API logic into hooks keeps components **clean and reusable**.
 
 ---
 
-## 🧩 March 2 — UI Foundation
+# Tech Stack
 
-**Commit:** `45cbc0b`  
-Built:
+Frontend
 
-- `PokemonCard`
-- `PokemonCards` grid wrapper
+- React
+- TypeScript
+- Vite
+- React Router
 
-Decisions made:
+UI
 
-- Keep cards purely presentational.
-- Grid handles layout.
-- Clean prop typing.
+- TailwindCSS
+- shadcn/ui
 
-Focus:  
-Component clarity > speed.
+API
 
----
+- PokeAPI
 
-## 🌗 March 2 — Theme System Architecture
+Deployment
 
-**Commit:** `f716833`  
-Initialized `ThemeContext`.
-
-Instead of hardcoding dark mode, I built:
-
-- Global theme provider
-- `"light"` | `"dark"` | `"system"` support
-- System preference detection
-- Toggle-ready structure
+- Netlify
 
 ---
 
-## 🎛 March 2 — Theme Toggle UI
+# Project Structure
 
-**Commit:** `cac4243` → `e5c6bce`
-
-Implemented:
-
-- Toggle button
-- Proper state switching
-- System theme fallback
-- Tailwind dark mode integration
-
-What I learned:  
-Theme systems are more about architecture than styling.
-
----
-
-## 🚀 March 3 — Deployment Struggles (GitHub Pages)
-
-Commits:
-
-- `935ca8a`
-- `385ba24`
-- `fixing build dist part#2`
-
-Problem:
-
-- MIME type error
-- Wrong asset paths
-- `dist` not loading properly
-
-Root cause:  
-Vite base path misconfiguration for GitHub Pages.
-
-Fix:  
-Proper production build + correct base configuration.
-
-Lesson:
-
-> Deployment is part of frontend engineering.  
-> If it doesn’t deploy cleanly, it’s not finished.
-
-Now live at:  
-[https://dale0311.github.io/projectPokemon/](https://dale0311.github.io/projectPokemon/)
+```
+src
+│
+├── components
+│   ├── PokemonCard
+│   └── PokemonCards
+│
+├── hooks
+│   ├── usePokemon
+│   └── usePokemonDetails
+│
+├── layouts
+│   └── RootLayout
+│
+├── pages
+│   ├── Home
+│   └── PokemonDetails
+│
+├── context
+│   └── ThemeContext
+│
+└── router
+    └── AppRouter
+```
 
 ---
 
-# ✅ Current Features
+# Project Progress
 
-- Pokémon Card component
-- Responsive Grid Layout
-- Centralized Fetch Helper
-- Theme Context (light/dark/system)
-- Functional Toggle Button
-- Production Deployment
+### March 2026
 
----
+- Migrated deployment from **GitHub Pages → Netlify**
+- Added **React Router**
+- Implemented **dynamic route `/pokemons/:id`**
+- Created **usePokemonDetails hook**
+- Initialized **PokemonDetails page**
+- Refactored **usePokemon hook**
+- Flattened API data before passing to components
+- Fixed deployment issues
+- Improved TypeScript types
 
-# ⏳ Planned Features
+### Earlier Progress
 
-- Pokémon Details Page
-- Evolution Chain
-- Stats Visualization
-- Type Weakness Logic
-- Pagination or Infinite Scroll
-- Better loading states
-- Error boundaries
-
----
-
-# 🧠 What This Project Is Really About
-
-This isn’t just a Pokédex.
-
-It’s practice in:
-
-- Clean architecture
-- Thoughtful commits
-- Incremental improvement
-- Debugging real deployment issues
-- Writing code I’m not embarrassed to show
+- Implemented **theme toggle**
+- Created **PokemonCard & PokemonCards components**
+- Built **API fetch helper**
+- Initialized project structure
 
 ---
 
-## 🏗 Design Philosophy
+# Future Improvements
 
-Minimal first.
+Planned features:
 
-No heavy gradients.  
-No flashy effects.  
-Just clean UI that can scale.
+- Pokémon evolution chain
+- Abilities and stats display
+- Search functionality
+- Pagination / infinite scroll
+- Loading skeletons
+- Better mobile layout
+
+---
+
+# Installation
+
+Clone the repository
+
+```bash
+git clone https://github.com/Dale0311/projectPokemon.git
+```
+
+Install dependencies
+
+```bash
+npm install
+```
+
+Run development server
+
+```bash
+npm run dev
+```
+
+Build project
+
+```bash
+npm run build
+```
+
+---
