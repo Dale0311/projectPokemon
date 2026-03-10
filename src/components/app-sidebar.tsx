@@ -7,7 +7,6 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
-import logo from "../../public/pokeball-logo.png";
 import { ArrowLeft, Home, Settings } from "lucide-react";
 import { Link } from "react-router";
 import { Button } from "@/components/ui/button";
@@ -22,7 +21,12 @@ export function AppSidebar() {
         <div className="w-4/5 mx-auto flex items-center justify-between group-data-[state=collapsed]:flex-col group-data-[state=collapsed]:space-y-3 group-data-[state=collapsed]:mt-3">
           <Link to="/">
             <div className="flex items-center space-x-2">
-              <img src={logo} alt="pokeball" width={42} height={42} />
+              <img
+                src="pokeball-logo.png"
+                alt="pokeball"
+                width={42}
+                height={42}
+              />
               <span className="font-semibold group-data-[collapsible=icon]:hidden text-lg">
                 PokéDex
               </span>

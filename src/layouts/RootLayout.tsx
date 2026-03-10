@@ -6,7 +6,7 @@ export default function RootLayout() {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <main className="flex w-full">
+      <main className="flex w-full transition-colors duration-300 ease-in-out">
         <div className="flex-1">
           <Outlet />
         </div>

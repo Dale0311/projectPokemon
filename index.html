@@ -5,6 +5,22 @@
     <link rel="icon" type="image/svg+xml" href="/pokeball-logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PokéDex</title>
+    <script>
+      const theme = localStorage.getItem("theme");
+      const systemDark = window.matchMedia(
+        "(prefers-color-scheme: dark)",
+      ).matches;
+
+      const isDark = theme === "dark" || (!theme && systemDark);
+
+      if (isDark) {
+        document.documentElement.classList.add("dark");
+        document.documentElement.style.backgroundColor = "#0A0A0A";
+      } else {
+        document.documentElement.classList.add("light");
+        document.documentElement.style.backgroundColor = "#ffffff";
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
