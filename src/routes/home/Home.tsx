@@ -1,23 +1,18 @@
 import PokemonCards from "@/components/PokemonCards";
-import { usePokemonList } from "@/hooks/usePokemonList";
+import { Suspense } from "react";
 
 const Home = () => {
-  // const { loading, pokemons } = usePokemon(20);
-  const { data: pokemonList, error, isLoading } = usePokemonList(40);
-  if (isLoading) {
-    return <div className="mx-auto w-full">Loading.....</div>;
-  }
-  if (error)
-    return <div className="mx-auto w-full">Error..... {error.message}</div>;
-  if (!pokemonList) {
-    return <div className="mx-auto w-full">No Pokemon Found</div>;
-  }
-
   return (
     <>
-      <div className="mx-auto w-full">
-        <PokemonCards pokemons={pokemonList} />
-      </div>
+      <Suspense
+        fallback={
+          <div className="flex justify-center items-center w-full h-full text-5xl text-white font-bold">
+            <h1>Loading...</h1>
+          </div>
+        }
+      >
+        <PokemonCards />
+      </Suspense>
     </>
   );
 };

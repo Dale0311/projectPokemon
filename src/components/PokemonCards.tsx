@@ -1,18 +1,8 @@
-import type { TPokemonCard } from "@/types/pokemon";
 import PokemonCard from "@/components/PokemonCard";
+import { usePokemonList } from "@/hooks/usePokemonList";
 
-type Props = {
-  pokemons: TPokemonCard[];
-};
-
-export default function PokemonCards({ pokemons }: Props) {
-  if (!pokemons.length) {
-    return (
-      <div className="flex justify-center items-center py-20 text-muted-foreground">
-        No Pokémon found.
-      </div>
-    );
-  }
+export default function PokemonCards() {
+  const { data: pokemons } = usePokemonList(40);
 
   return (
     <section className="mx-auto px-4 sm:px-6 lg:px-8 py-5 mt-4">
