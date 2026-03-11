@@ -11,7 +11,9 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-function flattenEvolutionChain(evolutionChain: TEvolutionNode): string[] {
+export function flattenEvolutionChain(
+  evolutionChain: TEvolutionNode,
+): string[] {
   const chain = [];
   let current: TEvolutionNode = evolutionChain;
   while (current) {
@@ -44,7 +46,6 @@ function getPokemonSpeciesDetails(pokemonSpecies: TPokemonSpeciesResponse) {
 export function transformDataPokemon(
   pokemonDetails: TPokemonResponse,
   pokemonSpecies: TPokemonSpeciesResponse,
-  evolutionChain: { chain: TEvolutionNode },
 ) {
   const { flavorText, genera } = getPokemonSpeciesDetails(pokemonSpecies);
   const pokemon: TPokemon = {
@@ -60,9 +61,9 @@ export function transformDataPokemon(
       value: s.base_stat,
     })),
     moves: pokemonDetails.moves.slice(0, 4).map((m) => m.move.name),
-    evolution_chain: flattenEvolutionChain(evolutionChain.chain),
     flavorText,
     genera,
+    evolutionChainUrl: pokemonSpecies.evolution_chain.url,
   };
 
   return pokemon;

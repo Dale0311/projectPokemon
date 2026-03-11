@@ -1,7 +1,6 @@
 import { fetchAPI } from "@/lib/api";
 import { transformDataPokemon } from "@/lib/utils";
 import type {
-  TEvolutionNode,
   TPokemon,
   TPokemonResponse,
   TPokemonSpeciesResponse,
@@ -40,35 +39,15 @@ export function usePokemonDetails(id: string) {
         setError(`Error from fetchfetchPokemonSpecies - ${error}`);
       }
     }
-    async function fetchPEvolutionChain(id: string) {
-      try {
-        const data: { chain: TEvolutionNode } = await fetchAPI(
-          `evolution-chain/${id}`,
-          {
-            signal: controller.signal,
-          },
-        );
-        return data;
-      } catch (error) {
-        setError(`Error from fetchPEvolutionChain - ${error}`);
-      }
-    }
 
     async function fetchPokemon(id: string) {
-      const [pokemonDetails, pokemonSpecies, evolutionChain] =
-        await Promise.all([
-          fetchPokemonDetails(id),
-          fetchPokemonSpecies(id),
-          fetchPEvolutionChain(id),
-        ]);
-
-      const pokemon = transformDataPokemon(
-        pokemonDetails!,
-        pokemonSpecies!,
-        evolutionChain!,
-      );
-
-      setPokemon(pokemon);
+      const [pokemonDetails, pokemonSpecies] = await Promise.all([
+        fetchPokemonDetails(id),
+        fetchPokemonSpecies(id),
+      ]);
+      if (!pokemonDetails || !pokemonSpecies) return;
+      const pokemon = transformDataPokemon(pokemonDetails, pokemonSpecies);
+      setPokemon({ ...pokemon });
     }
 
     fetchPokemon(id);

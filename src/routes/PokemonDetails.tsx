@@ -1,15 +1,20 @@
+import { useEvolutionDetails } from "@/hooks/useEvolutionDetails";
 import { usePokemonDetails } from "@/hooks/usePokemonDetails";
 import { useParams } from "react-router";
 
 const PokemonDetails = () => {
   const { id } = useParams();
   const { loading, pokemon, error } = usePokemonDetails(id || "1");
+  const { evolutionChain } = useEvolutionDetails(
+    pokemon?.evolutionChainUrl || "",
+  );
 
   if (loading) return <p>getting the data....</p>;
   if (error) return <p>Something went wrong - {error}</p>;
   if (!pokemon) return <p>No Pokemon found</p>;
+
   return (
-    <section className="max-w-4/5 mx-auto px-6 py-10">
+    <section className="md:w-4/5 mx-auto px-6 py-10">
       {/* Header */}
       <div className="flex flex-col lg:h-150 md:flex-row items-center justify-evenly gap-8 mb-10">
         <div className="space-y-3">
@@ -42,7 +47,7 @@ const PokemonDetails = () => {
       </div>
 
       {/* Main Layout */}
-      <div className="grid relative md:grid-cols-2 gap-12 bg-card border text-card-foreground px-8 py-16 rounded-xl shadow-sm">
+      <div className="grid relative md:grid-cols-2 gap-12 bg-card border text-card-foreground px-2 md:px-8 py-16 rounded-xl shadow-sm">
         {/* LEFT */}
         <div className="space-y-8">
           <div>
@@ -115,32 +120,33 @@ const PokemonDetails = () => {
           />
         </div>
       </div>
-
-      {pokemon.evolution_chain?.length > 0 && (
-        <div className="mt-16 bg-card border rounded-xl p-8 shadow-sm">
-          <h3 className="font-semibold text-lg mb-8">Evolution</h3>
-
-          <div className="flex items-center gap-8 flex-wrap">
-            {pokemon.evolution_chain.map((name, i) => (
-              <div key={name} className="flex items-center gap-8">
-                <div className="flex flex-col items-center gap-3">
-                  <div className="w-20 h-20 rounded-xl border bg-muted flex items-center justify-center text-sm capitalize">
-                    {name}
-                  </div>
-
-                  <span className="text-xs text-muted-foreground capitalize">
-                    {name}
-                  </span>
-                </div>
-
-                {i !== pokemon.evolution_chain.length - 1 && (
-                  <span className="text-muted-foreground text-xl">→</span>
-                )}
-              </div>
-            ))}
+      <div className="mt-16 bg-card border rounded-xl p-8 shadow-sm">
+        {!evolutionChain ? (
+          <div>
+            <h3 className="font-semibold text-lg mb-8">
+              No available evolution
+            </h3>
           </div>
-        </div>
-      )}
+        ) : (
+          <div>
+            <h3 className="font-semibold text-lg mb-8">Evolution</h3>
+            <div className="flex items-center gap-8 flex-wrap">
+              {evolutionChain.map((name) => (
+                <div key={name} className="flex items-center gap-8">
+                  <div className="flex flex-col items-center gap-3">
+                    <div className="w-20 h-20 rounded-xl border bg-muted flex items-center justify-center text-sm capitalize">
+                      {name}
+                    </div>
+                    <span className="text-xs text-muted-foreground capitalize">
+                      {name}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
     </section>
   );
 };

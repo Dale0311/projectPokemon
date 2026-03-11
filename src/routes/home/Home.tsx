@@ -9,7 +9,7 @@ const Home = () => {
 
   return (
     <>
-      <div className="p-4 mx-auto w-full">
+      <div className="mx-auto w-full">
         <PokemonCards pokemons={pokemons} />
       </div>
     </>

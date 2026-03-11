@@ -46,6 +46,9 @@ export type TPokemonSpeciesResponse = {
       name: string;
     };
   }[];
+  evolution_chain: {
+    url: string;
+  };
 };
 export type TEvolutionNode = {
   species: {
@@ -68,9 +71,9 @@ export type TPokemon = {
 
   moves: string[];
   abilities: string[];
-  evolution_chain: string[];
   flavorText: string[]; //e.g: Its newly grown legs prevent it from running. It appears to prefer swimming than trying to stand.
   genera: string | undefined; //toad pokemon
+  evolutionChainUrl: string;
 };
 
 export type TPokemonCard = Pick<TPokemon, "id" | "name" | "img" | "types">;

@@ -22,7 +22,7 @@ export function AppSidebar() {
           <Link to="/">
             <div className="flex items-center space-x-2">
               <img
-                src="pokeball-logo.png"
+                src="/pokeball-logo.png"
                 alt="pokeball"
                 width={42}
                 height={42}
