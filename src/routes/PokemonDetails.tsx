@@ -3,15 +3,11 @@ import { usePokemonDetails } from "@/hooks/usePokemonDetails";
 import { useParams } from "react-router";
 
 const PokemonDetails = () => {
-  const { id } = useParams();
-  const { loading, pokemon, error } = usePokemonDetails(id || "1");
+  const { name } = useParams();
+  const { data: pokemon } = usePokemonDetails(name ?? "");
   const { evolutionChain } = useEvolutionDetails(
     pokemon?.evolutionChainUrl || "",
   );
-
-  if (loading) return <p>getting the data....</p>;
-  if (error) return <p>Something went wrong - {error}</p>;
-  if (!pokemon) return <p>No Pokemon found</p>;
 
   return (
     <section className="md:w-4/5 mx-auto px-6 py-10">
@@ -24,8 +20,6 @@ const PokemonDetails = () => {
               #{pokemon.id.toString().padStart(3, "0")}
             </span>
           </h1>
-
-          <p className="text-muted-foreground">The {pokemon.genera}</p>
 
           <div className="flex gap-2 flex-wrap">
             {pokemon.types.map((type) => (

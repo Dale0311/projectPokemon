@@ -9,7 +9,7 @@ const App = () => {
       <Route element={<RootLayout />}>
         <Route path="/" element={<Home />} />
         <Route path="settings" element={<Home />} />
-        <Route path={"pokemons/:id"} element={<PokemonDetails />} />
+        <Route path={"pokemons/:name"} element={<PokemonDetails />} />
       </Route>
     </Routes>
   );

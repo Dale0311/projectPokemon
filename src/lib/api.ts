@@ -20,3 +20,7 @@ export async function fetchPokemon(name: string) {
   const data = await axiosInstance.get(`/pokemon/${name}`);
   return data.data;
 }
+export async function fetchPokemonSpecies(name: string) {
+  const data = await axiosInstance.get(`/pokemon-species/${name}`);
+  return data.data;
+}

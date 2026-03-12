@@ -6,7 +6,6 @@ export function usePokemonList(limit: number) {
   return useSuspenseQuery<TPokemonCard[]>({
     queryKey: ["pokemon-list", limit],
     queryFn: async () => {
-      await new Promise((r) => setTimeout(r, 1000));
       const data = await fetchPokemonList(limit);
       if (!data?.results) throw new Error("Invalid API response");
 

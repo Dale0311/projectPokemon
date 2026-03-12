@@ -8,7 +8,7 @@ type Props = {
 
 export default function PokemonCard({ pokemon }: Props) {
   return (
-    <Link to={`/pokemons/${pokemon.id}`}>
+    <Link to={`/pokemons/${pokemon.name}`}>
       <div
         className={cn(
           "group rounded-2xl border bg-card text-card-foreground",
