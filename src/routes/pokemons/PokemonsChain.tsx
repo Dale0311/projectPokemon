@@ -12,7 +12,7 @@ const PokemonsChain = ({ url }: TProps) => {
       {!chain || chain.length === 0 ? (
         <p className="text-muted-foreground">No available evolution</p>
       ) : (
-        <div className="flex gap-8 flex-wrap justify-between w-full">
+        <div className="flex gap-8 flex-col items-center justify-center md:justify-normal lg:flex-row w-full">
           {chain.map((evo) => (
             <div
               key={evo.id}

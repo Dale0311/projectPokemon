@@ -135,7 +135,6 @@ const PokemonDetails = () => {
       <Suspense fallback={<PokemonChainSkeleton />}>
         <PokemonsChain url={pokemon.evolutionChainUrl} />
       </Suspense>
-      {/* evolution */}
     </section>
   );
 };

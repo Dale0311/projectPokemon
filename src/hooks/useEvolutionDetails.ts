@@ -7,7 +7,7 @@ export function useEvolutionDetails(url: string) {
   return useSuspenseQuery<TPokemonCard[]>({
     queryKey: ["pokemon", url],
     queryFn: async () => {
-      await new Promise((r) => setTimeout(r, 1000));
+      await new Promise((r) => setTimeout(r, 300));
       const chain: { chain: TEvolutionNode } = await fetchEvolutionChain(url);
       const flattenChain: string[] = flattenEvolutionChain(chain.chain);
       const evolution = await Promise.all(
