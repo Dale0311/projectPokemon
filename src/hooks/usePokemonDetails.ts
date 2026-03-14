@@ -17,5 +17,6 @@ export function usePokemonDetails(name: string) {
 
       return transformDataPokemon(pokemonDetails, pokemonSpecies);
     },
+    staleTime: 1000 * 60 * 5,
   });
 }

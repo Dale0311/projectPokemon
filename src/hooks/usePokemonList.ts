@@ -21,5 +21,7 @@ export function usePokemonList(limit: number) {
         types: p.types.map((t) => t.type.name),
       }));
     },
+    staleTime: 1000 * 60 * 60 * 24, // 1day fresh
+    gcTime: 1000 * 60 * 60 * 24,
   });
 }

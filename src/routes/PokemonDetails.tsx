@@ -40,7 +40,7 @@ const PokemonDetails = () => {
               #{pokemon.id.toString().padStart(3, "0")}
             </span>
           </h1>
-          <p className="text-muted-foreground">{pokemon.genera}</p>
+          <p className="text-muted-foreground">The {pokemon.genera}</p>
           <div className="flex gap-2 flex-wrap">
             {pokemon.types.map((type) => (
               <span
@@ -53,7 +53,7 @@ const PokemonDetails = () => {
           </div>
         </div>
 
-        <div className="relative w-44 h-44 md:w-64 md:h-64">
+        <div className="relative w-52 h-52 md:w-80 md:h-80">
           <img
             src={pokemon.img}
             alt={pokemon.name}

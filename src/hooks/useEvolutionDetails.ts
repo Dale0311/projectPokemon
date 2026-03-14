@@ -16,5 +16,6 @@ export function useEvolutionDetails(url: string) {
 
       return evolution;
     },
+    staleTime: 1000 * 60 * 5,
   });
 }

@@ -1,4 +1,5 @@
 import { useEvolutionDetails } from "@/hooks/useEvolutionDetails";
+import { Link } from "react-router";
 type TProps = {
   url: string;
 };
@@ -14,7 +15,8 @@ const PokemonsChain = ({ url }: TProps) => {
       ) : (
         <div className="flex gap-8 flex-col items-center justify-center md:justify-normal lg:flex-row w-full">
           {chain.map((evo) => (
-            <div
+            <Link
+              to={`/pokemons/${evo.name}`}
               key={evo.id}
               className="flex flex-col items-center gap-4 w-[30%] min-w-37.5"
             >
@@ -41,7 +43,7 @@ const PokemonsChain = ({ url }: TProps) => {
                   </span>
                 ))}
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       )}
