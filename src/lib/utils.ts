@@ -68,3 +68,7 @@ export function transformDataPokemon(
 
   return pokemon;
 }
+
+export function padID(id: number) {
+  return id.toString().padStart(4, "0");
+}

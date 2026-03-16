@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn, padID } from "@/lib/utils";
 import type { TPokemonCard } from "@/types/pokemon";
 import { Link } from "react-router";
 
@@ -7,8 +7,9 @@ type Props = {
 };
 
 export default function PokemonCard({ pokemon }: Props) {
+  const id = padID(pokemon.id);
   return (
-    <Link to={`/pokemons/${pokemon.name}`}>
+    <Link to={`/pokemons/${id}`}>
       <div
         className={cn(
           "group rounded-2xl border bg-card text-card-foreground",
@@ -27,9 +28,7 @@ export default function PokemonCard({ pokemon }: Props) {
         {/* Info Section */}
         <div className="p-6 space-y-4">
           {/* ID */}
-          <p className="text-sm text-muted-foreground tracking-widest">
-            #{pokemon.id.toString().padStart(4, "0")}
-          </p>
+          <p className="text-sm text-muted-foreground tracking-widest">#{id}</p>
           {/* Name */}
           <h2 className="text-2xl font-semibold capitalize">{pokemon.name}</h2>
           {/* Types */}

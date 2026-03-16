@@ -7,13 +7,13 @@ import type {
 } from "@/types/pokemon";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
-export function usePokemonDetails(name: string) {
+export function usePokemonDetails(id: number) {
   return useSuspenseQuery<TPokemon>({
-    queryKey: ["pokemon", name],
+    queryKey: ["pokemon", id],
     queryFn: async () => {
-      const pokemonDetails: TPokemonResponse = await fetchPokemon(name);
+      const pokemonDetails: TPokemonResponse = await fetchPokemon(id);
       const pokemonSpecies: TPokemonSpeciesResponse =
-        await fetchPokemonSpecies(name);
+        await fetchPokemonSpecies(id);
 
       return transformDataPokemon(pokemonDetails, pokemonSpecies);
     },

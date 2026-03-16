@@ -17,12 +17,12 @@ export async function fetchPokemonList(limit: number) {
   const data = await axiosInstance.get(`/pokemon?limit=${limit}`);
   return data.data;
 }
-export async function fetchPokemon(name: string) {
-  const data = await axiosInstance.get(`/pokemon/${name}`);
+export async function fetchPokemon(id: number | string) {
+  const data = await axiosInstance.get(`/pokemon/${id}`);
   return data.data;
 }
-export async function fetchPokemonSpecies(name: string) {
-  const data = await axiosInstance.get(`/pokemon-species/${name}`);
+export async function fetchPokemonSpecies(id: number) {
+  const data = await axiosInstance.get(`/pokemon-species/${id}`);
   return data.data;
 }
 export async function fetchEvolutionChain(url: string) {
