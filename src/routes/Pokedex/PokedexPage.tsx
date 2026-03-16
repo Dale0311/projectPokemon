@@ -2,13 +2,13 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { usePokemonDetails } from "@/hooks/usePokemonDetails";
 import { Suspense } from "react";
 import { redirect, useParams } from "react-router";
-import PokemonsChain from "./pokemons/PokemonsChain";
+import PokemonsChain from "./components/PokemonsChain";
 import PokemonChainSkeleton from "@/components/skeletons/PokemonChainSkeleton";
-import PokedexEntry from "./pokemons/PokedexEntry";
-import PokedexHeader from "./pokemons/PokedexHeader";
-import PokedexNav from "./pokemons/PokedexNav";
+import PokedexEntry from "./components/PokedexEntry";
+import PokedexHeader from "./components/PokedexHeader";
+import PokedexNav from "./components/PokedexNav";
 
-const PokemonDetails = () => {
+const PokedexPage = () => {
   const { id } = useParams();
 
   if (!id) throw redirect("/");
@@ -46,4 +46,4 @@ const PokemonDetails = () => {
   );
 };
 
-export default PokemonDetails;
+export default PokedexPage;

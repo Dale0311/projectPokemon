@@ -1,15 +1,15 @@
 import { Route, Routes } from "react-router";
-import Home from "@/routes/home/Home";
 import RootLayout from "@/layouts/RootLayout";
-import PokemonDetails from "./routes/PokemonDetails";
+import HomePage from "./routes/home/HomePage";
+import PokedexPage from "./routes/Pokedex/PokedexPage";
 
 const App = () => {
   return (
     <Routes>
       <Route element={<RootLayout />}>
-        <Route path="/" element={<Home />} />
-        <Route path="settings" element={<Home />} />
-        <Route path={"pokemons/:id"} element={<PokemonDetails />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="settings" element={<HomePage />} />
+        <Route path={"pokedex/:id"} element={<PokedexPage />} />
       </Route>
     </Routes>
   );

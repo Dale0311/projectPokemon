@@ -9,7 +9,7 @@ type Props = {
 export default function PokemonCard({ pokemon }: Props) {
   const id = padID(pokemon.id);
   return (
-    <Link to={`/pokemons/${id}`}>
+    <Link to={`/pokedex/${id}`}>
       <div
         className={cn(
           "group rounded-2xl border bg-card text-card-foreground",
