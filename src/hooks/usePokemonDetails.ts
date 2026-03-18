@@ -5,13 +5,15 @@ import type {
   TPokemonResponse,
   TPokemonSpeciesResponse,
 } from "@/types/pokemon";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
 export function usePokemonDetails(id: number) {
-  return useSuspenseQuery<TPokemon>({
+  return useQuery<TPokemon>({
     queryKey: ["pokemon", id],
     queryFn: async () => {
+      await new Promise((res) => setTimeout(res, 1000));
       const pokemonDetails: TPokemonResponse = await fetchPokemon(id);
+
       const pokemonSpecies: TPokemonSpeciesResponse =
         await fetchPokemonSpecies(id);
 
