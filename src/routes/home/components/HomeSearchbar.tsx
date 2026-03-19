@@ -8,14 +8,13 @@ import {
   CommandInput,
 } from "@/components/ui/command";
 import { useAllPokemonNames } from "@/hooks/useAllPokemonNames";
-import type { TPokemonCard } from "@/types/pokemon";
-import { fetchPokemonCard } from "@/lib/api";
+
 import { X } from "lucide-react";
 
 export default function HomeSearchbar({
-  setPokemon,
+  setSearchPokemon,
 }: {
-  setPokemon: (pokemon?: TPokemonCard | null) => void;
+  setSearchPokemon: React.Dispatch<React.SetStateAction<string>>;
 }) {
   const [query, setQuery] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -27,13 +26,12 @@ export default function HomeSearchbar({
   const handleSelect = async (value: string) => {
     setQuery(value);
     setShowSuggestions(false);
-    const pokemon = await fetchPokemonCard(value);
-    setPokemon(pokemon);
+    setSearchPokemon(value);
   };
 
   const clearSelect = () => {
     setQuery("");
-    setPokemon();
+    setSearchPokemon("");
   };
 
   return (
