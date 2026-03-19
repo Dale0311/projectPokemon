@@ -31,7 +31,7 @@ export async function fetchEvolutionChain(url: string) {
   return data.data;
 }
 
-export async function getChainDetails(name: string) {
+export async function fetchPokemonCard(name: string) {
   const data: TPokemonResponse = await fetchPokemon(name);
   return {
     name: data.name,
@@ -39,4 +39,8 @@ export async function getChainDetails(name: string) {
     types: data.types.map((t) => t.type.name),
     img: data.sprites.other["official-artwork"].front_default,
   };
+}
+export async function fetchAllPokemonName() {
+  const data = await axiosInstance.get(`/pokemon?limit=1350`);
+  return data.data;
 }

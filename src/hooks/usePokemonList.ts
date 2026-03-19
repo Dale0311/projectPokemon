@@ -4,7 +4,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 
 export function usePokemonList(limit: number) {
   return useSuspenseQuery<TPokemonCard[]>({
-    queryKey: ["pokemon-list", limit],
+    queryKey: ["pokemonList", limit],
     queryFn: async () => {
       const data = await fetchPokemonList(limit);
       if (!data?.results) throw new Error("Invalid API response");
