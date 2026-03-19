@@ -35,7 +35,7 @@ export default function HomeSearchbar({
   };
 
   return (
-    <div className="relative w-full max-w-md mx-auto mt-5">
+    <div className="relative w-full max-w-md px-4 mx-auto mt-5">
       <Command className="rounded-xl border shadow-md">
         <div className="flex items-center justify-between px-3">
           <div className="flex-1">
@@ -62,7 +62,7 @@ export default function HomeSearchbar({
             className="
               absolute top-full left-0 w-full mt-2
               rounded-xl border bg-background shadow-md
-              z-50 max-h-60 overflow-y-auto
+              z-50 max-h-60 overflow-y-auto 
             "
           >
             <CommandEmpty>No Pokémon found.</CommandEmpty>

@@ -31,6 +31,9 @@ export type TPokemonResponse = {
       name: string;
     };
   }[];
+  species: {
+    name: string;
+  };
 };
 
 export type TPokemonSpeciesResponse = {

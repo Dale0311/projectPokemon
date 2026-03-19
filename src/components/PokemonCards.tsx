@@ -3,7 +3,7 @@ import { usePokemonList } from "@/hooks/usePokemonList";
 import PokemonCardsContainer from "./PokemonCardsContainer";
 
 export default function PokemonCards() {
-  const { data: pokemons } = usePokemonList(40);
+  const { data: pokemons } = usePokemonList(15);
 
   return (
     <PokemonCardsContainer>
