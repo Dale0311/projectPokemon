@@ -5,17 +5,17 @@ export const PokedexSkeleton = () => {
     <>
       <div className="flex flex-col md:flex-row items-center justify-between gap-6">
         {/* Left info section */}
-        <div className="space-y-2 flex-1 w-full">
-          {/* Pokemon Name */}
-          <Skeleton className="h-10 md:h-14 w-2/3 rounded-md" />
-          {/* Pokemon ID */}
-          <Skeleton className="h-6 w-1/6 rounded-md" />
-          {/* Genera */}
-          <Skeleton className="h-5 w-1/3 rounded-md mt-1" />
-          {/* Types */}
-          <div className="flex gap-2 flex-wrap mt-2">
-            <Skeleton className="h-6 w-16 rounded-full" />
-            <Skeleton className="h-6 w-16 rounded-full" />
+        <div className="flex-1 w-full flex justify-center sm:justify-normal">
+          <div className="w-1/2 sm:w-full space-y-4 ">
+            {/* Pokemon Name */}
+            <Skeleton className="h-10 md:h-14 rounded-md" />
+            {/* Genera */}
+            <Skeleton className="h-5 w-1/2 rounded-md mt-1" />
+            {/* Types */}
+            <div className="flex gap-2 flex-wrap mt-2">
+              <Skeleton className="h-5 w-16 rounded-full" />
+              <Skeleton className="h-5 w-16 rounded-full" />
+            </div>
           </div>
         </div>
         {/* Right image section */}

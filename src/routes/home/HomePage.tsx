@@ -4,13 +4,13 @@ import { Suspense, useState } from "react";
 import HomeSearchbar from "./components/HomeSearchbar";
 import PokemonCard from "@/components/PokemonCard";
 import { usePokemonSearch } from "@/hooks/usePokemonSearch";
-
 const HomePage = () => {
   const [searchPokemon, setSearchPokemon] = useState("");
   const { data, isLoading } = usePokemonSearch(searchPokemon);
   return (
     <>
       <HomeSearchbar setSearchPokemon={setSearchPokemon} />
+
       {isLoading ? (
         <div className="w-full md:w-1/2 xl:w-1/4">
           <PokemonCardsSkeleton length={1} />
