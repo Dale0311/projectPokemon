@@ -4,9 +4,9 @@ import { Outlet } from "react-router";
 
 export default function RootLayout() {
   return (
-    <SidebarProvider>
+    <SidebarProvider defaultOpen={false}>
       <AppSidebar />
-      <main className="flex w-full transition-colors duration-300 ease-in-out">
+      <main className="flex w-full md:w-3/4 lg:w-1/2 mx-auto transition-colors duration-300 ease-in-out">
         <div className="flex-1">
           <Outlet />
         </div>

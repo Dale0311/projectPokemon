@@ -55,7 +55,7 @@ const HomeAdvanceSearch = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="relative w-full sm:w-4/5 md:w-2/3 lg:w-2/4 xl:w-2/5 px-4 mx-auto mt-5">
+    <div className="relative w-full px-4 mx-auto mt-5">
       <Collapsible open={open} onOpenChange={setOpen}>
         {/* 🔽 Trigger */}
         <div className="flex justify-center">

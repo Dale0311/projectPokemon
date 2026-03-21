@@ -26,22 +26,11 @@ export default function PokemonCard({ pokemon }: Props) {
           />
         </div>
         {/* Info Section */}
-        <div className="p-6 space-y-4">
+        <div className="p-4 flex flex-col items-center">
           {/* ID */}
           <p className="text-sm text-muted-foreground tracking-widest">#{id}</p>
           {/* Name */}
-          <h2 className="text-2xl font-semibold capitalize">{pokemon.name}</h2>
-          {/* Types */}
-          <div className="flex gap-2 flex-wrap">
-            {pokemon.types.map((t) => (
-              <span
-                key={t}
-                className="px-3 py-1 text-xs rounded-full bg-muted text-muted-foreground capitalize"
-              >
-                {t}
-              </span>
-            ))}
-          </div>
+          <h2 className=" font-semibold capitalize">{pokemon.name}</h2>
         </div>
       </div>
     </Link>

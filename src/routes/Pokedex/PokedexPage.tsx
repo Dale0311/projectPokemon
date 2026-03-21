@@ -19,7 +19,7 @@ const PokedexPage = () => {
 
   if (isLoading) {
     return (
-      <div className="md:w-4/5 xl:w-1/2 mx-auto px-6 py-10 space-y-10">
+      <div className="w-full mx-auto px-6 py-10 space-y-10">
         <PokedexNav currentId={parseId} isLoading={isLoading} />
         <PokedexSkeleton />
       </div>
@@ -31,7 +31,7 @@ const PokedexPage = () => {
   }
 
   return (
-    <section className="md:w-4/5 xl:w-1/2 mx-auto px-6 py-10 space-y-10">
+    <section className="w-full mx-auto px-6 py-10 space-y-10">
       <PokedexNav currentId={parseId} isLoading={isLoading} />
       <PokedexHeader pokemon={pokemon} />
       <PokedexEntry pokemon={pokemon} />
