@@ -1,6 +1,7 @@
 import type {
   TEvolutionNode,
   TPokemon,
+  TPokemonAllNames,
   TPokemonResponse,
   TPokemonSpeciesResponse,
 } from "@/types/pokemon";
@@ -71,4 +72,17 @@ export function transformDataPokemon(
 
 export function padID(id: number) {
   return id.toString().padStart(4, "0");
+}
+export function extractID(url: string) {
+  const id = url.split("/").at(-2);
+  return typeof id === "string" ? +id : 1;
+}
+
+export function createPokemonCardData(pokemon: TPokemonAllNames) {
+  const id = extractID(pokemon.url);
+  return {
+    id,
+    name: pokemon.name,
+    img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`,
+  };
 }

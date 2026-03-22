@@ -1,16 +1,21 @@
 import PokemonCards from "@/components/PokemonCards";
 import PokemonCardsSkeleton from "@/components/PokemonCardsSkeleton";
-import { Suspense, useState } from "react";
+import { useState } from "react";
 import HomeSearchbar from "./components/HomeSearchbar";
 import PokemonCard from "@/components/PokemonCard";
 import { usePokemonSearch } from "@/hooks/usePokemonSearch";
 import HomeAdvanceSearch from "./components/HomeAdvanceSearch";
+import { useAllPokemonNames } from "@/hooks/useAllPokemonNames";
 const HomePage = () => {
   const [searchPokemon, setSearchPokemon] = useState("");
-  const { data, isLoading } = usePokemonSearch(searchPokemon);
+  const { data: pokemonNames = [] } = useAllPokemonNames();
+  const { data, isLoading } = usePokemonSearch(searchPokemon, pokemonNames);
   return (
     <>
-      <HomeSearchbar setSearchPokemon={setSearchPokemon} />
+      <HomeSearchbar
+        setSearchPokemon={setSearchPokemon}
+        pokemonNames={pokemonNames}
+      />
       <HomeAdvanceSearch />
       {isLoading ? (
         <div className="w-full md:w-1/2 xl:w-1/4">
@@ -21,9 +26,7 @@ const HomePage = () => {
           <PokemonCard pokemon={data} />
         </div>
       ) : (
-        <Suspense fallback={<PokemonCardsSkeleton length={15} />}>
-          <PokemonCards />
-        </Suspense>
+        <PokemonCards />
       )}
     </>
   );

@@ -7,20 +7,22 @@ import {
   CommandList,
   CommandInput,
 } from "@/components/ui/command";
-import { useAllPokemonNames } from "@/hooks/useAllPokemonNames";
 
 import { X } from "lucide-react";
+import type { TPokemonAllNames } from "@/types/pokemon";
 
 export default function HomeSearchbar({
   setSearchPokemon,
+  pokemonNames,
 }: {
   setSearchPokemon: React.Dispatch<React.SetStateAction<string>>;
+  pokemonNames: TPokemonAllNames[];
 }) {
   const [query, setQuery] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
-  const { data: pokemonNames } = useAllPokemonNames();
+
   const filtered = pokemonNames
-    ?.filter((item) => item.toLowerCase().includes(query.toLowerCase()))
+    ?.filter((item) => item.name.toLowerCase().includes(query.toLowerCase()))
     .slice(0, 5);
 
   const handleSelect = async (value: string) => {
@@ -69,8 +71,12 @@ export default function HomeSearchbar({
 
             <CommandGroup>
               {filtered?.map((item) => (
-                <CommandItem key={item} value={item} onSelect={handleSelect}>
-                  {item}
+                <CommandItem
+                  key={item.name}
+                  value={item.name}
+                  onSelect={handleSelect}
+                >
+                  {item.name}
                 </CommandItem>
               ))}
             </CommandGroup>

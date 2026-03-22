@@ -79,4 +79,5 @@ export type TPokemon = {
   evolutionChainUrl: string;
 };
 
-export type TPokemonCard = Pick<TPokemon, "id" | "name" | "img" | "types">;
+export type TPokemonCard = Pick<TPokemon, "id" | "name" | "img">;
+export type TPokemonAllNames = { name: string; url: string };

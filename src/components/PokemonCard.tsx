@@ -8,6 +8,7 @@ type Props = {
 
 export default function PokemonCard({ pokemon }: Props) {
   const id = padID(pokemon.id);
+
   return (
     <Link to={`/pokedex/${id}`}>
       <div

@@ -1,13 +1,13 @@
 import { usePokemonDetails } from "@/hooks/usePokemonDetails";
 import { Suspense } from "react";
 import { redirect, useParams } from "react-router";
-import PokemonsChain from "./components/PokemonsChain";
 import PokemonChainSkeleton from "@/components/skeletons/PokemonChainSkeleton";
-import PokedexEntry from "./components/PokedexEntry";
-import PokedexHeader from "./components/PokedexHeader";
-import PokedexNav from "./components/PokedexNav";
 import NotFoundPage from "../NotFound";
+import PokedexNav from "./components/PokedexNav";
 import { PokedexSkeleton } from "./components/PokedexSkeleton";
+import PokedexHeader from "./components/PokedexHeader";
+import PokedexEntry from "./components/PokedexEntry";
+import PokemonsChain from "./components/PokemonsChain";
 
 const PokedexPage = () => {
   const { id } = useParams();

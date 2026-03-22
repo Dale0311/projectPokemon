@@ -1,8 +1,25 @@
 import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
+import { fetchAllPokemonName } from "@/lib/api";
+import type { TPokemonAllNames } from "@/types/pokemon";
+import { useQueryClient } from "@tanstack/react-query";
+import { useEffect } from "react";
+
 import { Outlet } from "react-router";
 
 export default function RootLayout() {
+  const queryClient = useQueryClient();
+  useEffect(() => {
+    queryClient.prefetchQuery({
+      queryKey: ["allPokemonNames"],
+      queryFn: async () => {
+        const pokemonDetails: { results: TPokemonAllNames[] } =
+          await fetchAllPokemonName();
+        return pokemonDetails.results;
+      },
+      staleTime: Infinity,
+    });
+  }, [queryClient]);
   return (
     <SidebarProvider defaultOpen={false}>
       <AppSidebar />

@@ -1,15 +1,15 @@
 import { fetchAllPokemonName } from "@/lib/api";
+import type { TPokemonAllNames } from "@/types/pokemon";
 import { useQuery } from "@tanstack/react-query";
 
 export function useAllPokemonNames() {
   return useQuery({
-    queryKey: ["pokemonList"],
+    queryKey: ["allPokemonNames"],
     queryFn: async () => {
-      const pokemonDetails: { results: { name: string }[] } =
+      const pokemonDetails: { results: TPokemonAllNames[] } =
         await fetchAllPokemonName();
-      return pokemonDetails;
+      return pokemonDetails.results;
     },
-    select: (res) => res.results.map((r) => r.name),
     staleTime: Infinity,
   });
 }

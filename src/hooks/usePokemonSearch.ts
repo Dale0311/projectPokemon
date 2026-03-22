@@ -1,14 +1,15 @@
-import { fetchPokemonCard } from "@/lib/api";
 import { useQuery } from "@tanstack/react-query";
+import type { TPokemonAllNames } from "@/types/pokemon";
+import { createPokemonCardData } from "@/lib/utils";
 
-export function usePokemonSearch(id: string) {
+export function usePokemonSearch(name: string, pokemons: TPokemonAllNames[]) {
   return useQuery({
-    queryKey: ["pokemonList", id],
+    queryKey: ["pokemonList", name],
     queryFn: async () => {
-      await new Promise((r) => setTimeout(r, 300));
-      const pokemon = await fetchPokemonCard(id);
-      return pokemon;
+      const pokemon = pokemons.find((pokemon) => pokemon.name === name);
+      if (pokemon) return createPokemonCardData(pokemon);
     },
-    enabled: !!id,
+    staleTime: 1000 * 60 * 60 * 24,
+    enabled: pokemons?.length > 0,
   });
 }

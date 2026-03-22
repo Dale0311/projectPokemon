@@ -1,27 +1,22 @@
-import { fetchPokemon, fetchPokemonList } from "../lib/api";
-import type { TPokemonCard, TPokemonResponse } from "@/types/pokemon";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import type { TPokemonCard } from "@/types/pokemon";
+import { useQuery } from "@tanstack/react-query";
+import { useAllPokemonNames } from "./useAllPokemonNames";
+import { createPokemonCardData } from "@/lib/utils";
 
-export function usePokemonList(limit: number) {
-  return useSuspenseQuery<TPokemonCard[]>({
-    queryKey: ["pokemonList", limit],
-    queryFn: async () => {
-      const data = await fetchPokemonList(limit);
-      if (!data?.results) throw new Error("Invalid API response");
-
-      const requests = data.results.map((d: { name: string }) =>
-        fetchPokemon(d.name),
-      );
-      const pokemonResponses: TPokemonResponse[] = await Promise.all(requests);
-
-      return pokemonResponses.map((p) => ({
-        id: p.id,
-        name: p.name,
-        img: p.sprites.other["official-artwork"].front_default,
-        types: p.types.map((t) => t.type.name),
-      }));
+export function usePokemonList(pageNumber: number = 1) {
+  const PAGE_SIZE = 40;
+  const { data: allPokemonNames = [] } = useAllPokemonNames();
+  return useQuery<TPokemonCard[]>({
+    queryKey: ["pokemonList", pageNumber],
+    queryFn: async (): Promise<TPokemonCard[]> => {
+      let pokemons: { name: string; url: string }[] = [];
+      const start = PAGE_SIZE * (pageNumber - 1);
+      const end = start + PAGE_SIZE;
+      pokemons = allPokemonNames.slice(start, end);
+      return pokemons.map((pokemon) => createPokemonCardData(pokemon));
     },
-    staleTime: 1000 * 60 * 60 * 24, // 1day fresh
+    staleTime: 1000 * 60 * 60 * 24,
     gcTime: 1000 * 60 * 60 * 24,
+    enabled: allPokemonNames.length > 0,
   });
 }
