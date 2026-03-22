@@ -1,14 +1,14 @@
 import PokemonCard from "@/components/PokemonCard";
-import { usePokemonList } from "@/hooks/usePokemonList";
 import PokemonCardsContainer from "./PokemonCardsContainer";
 import PokemonCardsSkeleton from "./PokemonCardsSkeleton";
+import type { TPokemonCard } from "@/types/pokemon";
+type Props = {
+  pokemons: TPokemonCard[];
+  isFetching: boolean;
+};
 
-export default function PokemonCards() {
-  const { data: pokemons, isFetching, isError } = usePokemonList(1);
-
+export default function PokemonCards({ pokemons, isFetching }: Props) {
   if (isFetching) return <PokemonCardsSkeleton length={40} />;
-  if (isError) return <div>Something went wrong</div>;
-
   return (
     <PokemonCardsContainer>
       {pokemons?.map((pokemon) => (
