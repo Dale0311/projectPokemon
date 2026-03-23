@@ -40,6 +40,8 @@ function HomePagination({ page, totalPage }: Props) {
               </Link>
             </Button>
           )}
+        </PaginationItem>
+        <PaginationItem>
           {isFirstPage ? (
             <PaginationLink
               size="icon"

@@ -13,7 +13,10 @@ import { useSearchParams } from "react-router";
 const HomePage = () => {
   const [searchPokemon, setSearchPokemon] = useState("");
   const { data: pokemonNames = [] } = useAllPokemonNames();
-  const { data, isLoading } = usePokemonSearch(searchPokemon, pokemonNames);
+  const { data: pokemon, isLoading } = usePokemonSearch(
+    searchPokemon,
+    pokemonNames,
+  );
   const [searchParams] = useSearchParams();
   const listRef = useRef<HTMLDivElement | null>(null);
   const {
@@ -27,6 +30,7 @@ const HomePage = () => {
     if (!listRef.current || searchParams.get("page") === null) return;
     listRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [searchParams]);
+
   return (
     <>
       <HomeSearchbar
@@ -38,13 +42,16 @@ const HomePage = () => {
         <div className="w-full md:w-1/2 xl:w-1/4">
           <PokemonCardsSkeleton length={1} />
         </div>
-      ) : data ? (
+      ) : pokemon ? (
         <div className="w-full md:w-1/2 xl:w-1/4 px-4 sm:px-6 lg:px-8 py-5 mt-4">
-          <PokemonCard pokemon={data} />
+          <PokemonCard pokemon={pokemon} />
         </div>
       ) : (
         <div ref={listRef}>
-          <PokemonCards pokemons={pokemons} isFetching={isFetching} />
+          <PokemonCards
+            pokemons={pokemon || pokemons}
+            isFetching={isFetching}
+          />
           <HomePagination page={page} totalPage={totalPage} />
         </div>
       )}

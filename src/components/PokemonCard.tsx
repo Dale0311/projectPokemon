@@ -31,7 +31,7 @@ export default function PokemonCard({ pokemon }: Props) {
           {/* ID */}
           <p className="text-sm text-muted-foreground tracking-widest">#{id}</p>
           {/* Name */}
-          <h2 className="line-clamp-2 text-sm font-medium leading-tight">
+          <h2 className="line-clamp-2 capitalize text-sm font-medium leading-tight">
             {pokemon.name}
           </h2>
         </div>
