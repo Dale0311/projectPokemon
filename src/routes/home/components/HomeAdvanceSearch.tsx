@@ -126,7 +126,7 @@ const HomeAdvanceSearch = () => {
             {/* ACTIONS */}
             <div className="flex justify-between gap-4 pt-4">
               <Button variant="outline">Reset</Button>
-              <Button className="w-full md:w-auto">Search</Button>
+              <Button className="flex-1 md:w-auto">Search</Button>
             </div>
           </div>
         </CollapsibleContent>

@@ -9,6 +9,7 @@ import { Outlet } from "react-router";
 
 export default function RootLayout() {
   const queryClient = useQueryClient();
+
   useEffect(() => {
     queryClient.prefetchQuery({
       queryKey: ["allPokemonNames"],
@@ -20,6 +21,7 @@ export default function RootLayout() {
       staleTime: Infinity,
     });
   }, [queryClient]);
+
   return (
     <SidebarProvider defaultOpen={false}>
       <AppSidebar />

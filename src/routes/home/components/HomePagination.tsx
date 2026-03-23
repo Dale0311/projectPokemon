@@ -1,10 +1,16 @@
+import { Button } from "@/components/ui/button";
 import {
   Pagination,
   PaginationContent,
   PaginationItem,
   PaginationLink,
 } from "@/components/ui/pagination";
-import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  ChevronsLeftIcon,
+  ChevronsRight,
+} from "lucide-react";
 import { Link } from "react-router";
 
 type Props = {
@@ -25,14 +31,29 @@ function HomePagination({ page, totalPage }: Props) {
               aria-disabled="true"
               className="pointer-events-none opacity-50"
             >
+              <ChevronsLeftIcon className="size-4" />
+            </PaginationLink>
+          ) : (
+            <Button asChild variant={"ghost"} size={"icon-sm"}>
+              <Link to={`?page=1`}>
+                <ChevronsLeftIcon />
+              </Link>
+            </Button>
+          )}
+          {isFirstPage ? (
+            <PaginationLink
+              size="icon"
+              aria-disabled="true"
+              className="pointer-events-none opacity-50"
+            >
               <ChevronLeftIcon className="size-4" />
             </PaginationLink>
           ) : (
-            <Link to={`?page=${page - 1}`}>
-              <PaginationLink size="icon">
-                <ChevronLeftIcon className="size-4" />
-              </PaginationLink>
-            </Link>
+            <Button asChild variant={"ghost"} size={"icon-sm"}>
+              <Link to={`?page=${page - 1}`}>
+                <ChevronLeftIcon />
+              </Link>
+            </Button>
           )}
         </PaginationItem>
         <PaginationItem>
@@ -51,11 +72,28 @@ function HomePagination({ page, totalPage }: Props) {
               <ChevronRightIcon className="size-4" />
             </PaginationLink>
           ) : (
-            <Link to={`?page=${page + 1}`}>
-              <PaginationLink size="icon">
-                <ChevronRightIcon className="size-4" />
-              </PaginationLink>
-            </Link>
+            <Button asChild variant={"ghost"} size={"icon-sm"}>
+              <Link to={`?page=${page + 1}`}>
+                <ChevronRightIcon />
+              </Link>
+            </Button>
+          )}
+        </PaginationItem>
+        <PaginationItem>
+          {isLastPage ? (
+            <PaginationLink
+              size="icon"
+              aria-disabled="true"
+              className="pointer-events-none opacity-50"
+            >
+              <ChevronsRight className="size-4" />
+            </PaginationLink>
+          ) : (
+            <Button asChild variant={"ghost"} size={"icon-sm"}>
+              <Link to={`?page=${totalPage}`}>
+                <ChevronsRight />
+              </Link>
+            </Button>
           )}
         </PaginationItem>
       </PaginationContent>

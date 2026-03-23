@@ -1,6 +1,6 @@
 import PokemonCards from "@/components/PokemonCards";
 import PokemonCardsSkeleton from "@/components/PokemonCardsSkeleton";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import HomeSearchbar from "./components/HomeSearchbar";
 import PokemonCard from "@/components/PokemonCard";
 import { usePokemonSearch } from "@/hooks/usePokemonSearch";
@@ -15,20 +15,18 @@ const HomePage = () => {
   const { data: pokemonNames = [] } = useAllPokemonNames();
   const { data, isLoading } = usePokemonSearch(searchPokemon, pokemonNames);
   const [searchParams] = useSearchParams();
-
+  const listRef = useRef<HTMLDivElement | null>(null);
   const {
     data: pokemons,
     isFetching,
     totalPage,
+    page,
   } = usePokemonList(Number(searchParams.get("page")) || 1);
-  const rawPage = Number(searchParams.get("page")) || 1;
-  const page = Math.min(Math.max(rawPage, 1), totalPage || 1);
 
-  // scroll
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [page]);
-
+    if (!listRef.current || searchParams.get("page") === null) return;
+    listRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [searchParams]);
   return (
     <>
       <HomeSearchbar
@@ -45,9 +43,11 @@ const HomePage = () => {
           <PokemonCard pokemon={data} />
         </div>
       ) : (
-        <PokemonCards pokemons={pokemons} isFetching={isFetching} />
+        <div ref={listRef}>
+          <PokemonCards pokemons={pokemons} isFetching={isFetching} />
+          <HomePagination page={page} totalPage={totalPage} />
+        </div>
       )}
-      <HomePagination page={page} totalPage={totalPage} />
     </>
   );
 };
