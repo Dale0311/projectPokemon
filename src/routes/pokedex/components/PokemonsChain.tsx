@@ -12,7 +12,7 @@ const PokemonsChain = ({ url }: TProps) => {
       <h3 className="font-semibold text-lg mb-6">Evolution</h3>
 
       {!chain || chain.length === 0 ? (
-        <p className="text-muted-foreground">No available evolution</p>
+        <p className="text-muted-foreground">This Pokémon does not evolve</p>
       ) : (
         <div className="flex gap-8 flex-col items-center justify-center md:justify-normal lg:flex-row w-full">
           {chain.map((evo) => (

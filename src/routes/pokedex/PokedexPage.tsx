@@ -8,10 +8,11 @@ import { PokedexSkeleton } from "./components/PokedexSkeleton";
 import PokedexHeader from "./components/PokedexHeader";
 import PokedexEntry from "./components/PokedexEntry";
 import PokemonsChain from "./components/PokemonsChain";
+import PokedexVarieties from "./components/PokedexVarieties";
+import { mockVarieties } from "@/lib/api";
 
 const PokedexPage = () => {
   const { id } = useParams();
-
   if (!id) throw redirect("/");
 
   const parseId = +id;
@@ -35,6 +36,7 @@ const PokedexPage = () => {
       <PokedexNav currentId={parseId} isLoading={isLoading} />
       <PokedexHeader pokemon={pokemon} />
       <PokedexEntry pokemon={pokemon} />
+      <PokedexVarieties varieties={mockVarieties} />
       <Suspense fallback={<PokemonChainSkeleton />}>
         <PokemonsChain url={pokemon.evolutionChainUrl} />
       </Suspense>

@@ -27,14 +27,23 @@ const PokedexHeader = ({ pokemon }: Props) => {
       </div>
 
       <div className="relative w-52 h-52 md:w-80 md:h-80">
-        <img
-          src={pokemon.img}
-          alt={pokemon.name}
-          className={`w-full h-full object-contain transition-all duration-500 ${
-            imgLoaded ? "blur-0" : "blur-lg"
-          }`}
-          onLoad={() => setImgLoaded(true)}
-        />
+        {pokemon.img ? (
+          <img
+            src={pokemon.img}
+            alt={pokemon.name}
+            className={`w-full h-full object-contain transition-all duration-500 ${
+              imgLoaded ? "blur-0 opacity-100" : "blur-lg opacity-0"
+            }`}
+            onLoad={() => setImgLoaded(true)}
+          />
+        ) : (
+          <div className="w-full h-full flex flex-col items-center justify-center text-muted-foreground text-sm border">
+            <div className="w-12 h-12 rounded-full border border-muted flex items-center justify-center mb-2">
+              ?
+            </div>
+            <span>No current image for this pokemon</span>
+          </div>
+        )}
       </div>
     </div>
   );
