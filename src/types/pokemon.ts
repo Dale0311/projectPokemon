@@ -56,6 +56,7 @@ export type TPokemonSpeciesResponse = {
 export type TEvolutionNode = {
   species: {
     name: string;
+    url: string;
   };
   evolves_to: TEvolutionNode[];
 };

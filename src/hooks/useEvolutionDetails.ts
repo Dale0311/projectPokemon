@@ -13,9 +13,10 @@ export function useEvolutionDetails(url: string) {
       // early check for now to prevent bug
       if (chain.chain.evolves_to.length === 0) return [];
       const flattenChain: string[] = flattenEvolutionChain(chain.chain);
+      console.log(flattenChain);
 
       const evolution = await Promise.all(
-        flattenChain.map((name) => fetchPokemonCard(name)),
+        flattenChain.map((id) => fetchPokemonCard(id)),
       );
 
       return evolution;

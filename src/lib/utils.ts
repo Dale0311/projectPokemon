@@ -18,7 +18,8 @@ export function flattenEvolutionChain(
   const chain = [];
   let current: TEvolutionNode = evolutionChain;
   while (current) {
-    chain.push(current.species.name);
+    const id = extractID(current.species.url) + "";
+    chain.push(id);
     if (current.evolves_to.length === 0) break;
     current = current.evolves_to[0];
   }
