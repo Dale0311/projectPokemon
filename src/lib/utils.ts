@@ -66,6 +66,7 @@ export function transformDataPokemon(
     flavorText,
     genera,
     evolutionChainUrl: pokemonSpecies.evolution_chain.url,
+    varieties: pokemonSpecies.varieties,
   };
 
   return pokemon;

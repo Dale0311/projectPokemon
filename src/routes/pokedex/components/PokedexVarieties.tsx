@@ -1,22 +1,15 @@
-import { useState } from "react";
-
-type TVariety = {
-  id: number;
-  name: string;
-  img: string;
-  is_default: boolean;
-  types: string[];
-};
+import { usePokemonVariant } from "@/hooks/usePokemonVariant";
+import type { TVarieties } from "@/types/pokemon";
+import { Link } from "react-router";
 
 type Props = {
-  varieties: TVariety[];
+  varieties: TVarieties[];
+  currentPokemonId: number;
 };
 
-const PokedexVarieties = ({ varieties }: Props) => {
-  const [activeId, setActiveId] = useState<number | null>(null);
-
-  if (!varieties || varieties.length <= 1) return null;
-
+const PokedexVarieties = ({ varieties, currentPokemonId }: Props) => {
+  const { data, isLoading } = usePokemonVariant(varieties);
+  if (isLoading) return <>Loading....</>;
   return (
     <div className="space-y-3">
       <h2 className="text-sm font-semibold text-muted-foreground">
@@ -24,20 +17,20 @@ const PokedexVarieties = ({ varieties }: Props) => {
       </h2>
 
       <div className="grid md:grid-cols-2 gap-3 overflow-x-auto pb-2">
-        {varieties.map((v) => {
-          const isActive = activeId === v.id;
+        {data.map((v) => {
+          const isActive = currentPokemonId === v.id;
 
           return (
-            <div
+            <Link
+              to={`/pokedex/${v.id}`}
               key={v.id}
-              onClick={() => setActiveId(v.id)}
-              className={`flex w-full items-center gap-3 px-4 py-2 rounded-xl border transition cursor-pointer
-                ${
-                  isActive
-                    ? "bg-primary text-primary-foreground border-primary"
-                    : "bg-muted border border-muted-foreground/20 hover:border-primary"
-                }
-              `}
+              className={`flex items-center gap-3 px-4 py-2 rounded-xl backdrop-blur border transition
+              ${
+                isActive
+                  ? "bg-primary/20 border-primary"
+                  : "bg-background/50 border-muted-foreground/20 hover:bg-accent"
+              }
+            `}
             >
               {/* Sprite */}
               <img
@@ -53,7 +46,7 @@ const PokedexVarieties = ({ varieties }: Props) => {
                   {v.types.join(" / ")}
                 </span>
               </div>
-            </div>
+            </Link>
           );
         })}
       </div>

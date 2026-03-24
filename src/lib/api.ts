@@ -24,7 +24,7 @@ export async function fetchEvolutionChain(url: string) {
   return data.data;
 }
 
-export async function fetchPokemonCard(name: string) {
+export async function fetchPokemonCard(name: string | number) {
   const data: TPokemonResponse = await fetchPokemon(name);
   return {
     name: data.name,

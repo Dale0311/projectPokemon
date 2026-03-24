@@ -1,3 +1,4 @@
+export type TPokemonAllNames = { name: string; url: string };
 export type TPokemonResponse = {
   id: number;
   name: string;
@@ -35,7 +36,9 @@ export type TPokemonResponse = {
     name: string;
   };
 };
-
+export type TVarieties = {
+  pokemon: { name: string; url: string };
+};
 export type TPokemonSpeciesResponse = {
   flavor_text_entries: {
     flavor_text: string;
@@ -49,10 +52,12 @@ export type TPokemonSpeciesResponse = {
       name: string;
     };
   }[];
+  varieties: TVarieties[];
   evolution_chain: {
     url: string;
   };
 };
+
 export type TEvolutionNode = {
   species: {
     name: string;
@@ -78,6 +83,7 @@ export type TPokemon = {
   flavorText: string[]; //e.g: Its newly grown legs prevent it from running. It appears to prefer swimming than trying to stand.
   genera: string | undefined; //toad pokemon
   evolutionChainUrl: string;
+  varieties: TVarieties[];
 };
 
 export type TPokemonCardEvolution = Pick<
@@ -85,4 +91,3 @@ export type TPokemonCardEvolution = Pick<
   "id" | "name" | "img" | "types"
 >;
 export type TPokemonCard = Omit<TPokemonCardEvolution, "types">;
-export type TPokemonAllNames = { name: string; url: string };
