@@ -37,33 +37,8 @@ export async function fetchAllPokemonName() {
   const data = await axiosInstance.get(`/pokemon?limit=1350`);
   return data.data;
 }
-export const mockVarieties = [
-  {
-    id: 6,
-    name: "charizard",
-    is_default: true,
-    img: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png",
-    types: ["fire", "flying"],
-  },
-  {
-    id: 10034,
-    name: "charizard-mega-x",
-    is_default: false,
-    img: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/10034.png",
-    types: ["fire", "flying"],
-  },
-  {
-    id: 10035,
-    name: "charizard-mega-y",
-    is_default: false,
-    img: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/10035.png",
-    types: ["fire", "flying"],
-  },
-  {
-    id: 10195,
-    name: "charizard-gmax",
-    is_default: false,
-    img: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/10196.png",
-    types: ["fire", "flying"],
-  },
-];
+
+export async function fetchAllPokemonByTypes(type: string) {
+  const data = await axiosInstance.get(`/type/${type}`);
+  return data.data;
+}

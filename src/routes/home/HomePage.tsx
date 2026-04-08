@@ -4,11 +4,11 @@ import { useEffect, useRef, useState } from "react";
 import HomeSearchbar from "./components/HomeSearchbar";
 import PokemonCard from "@/components/PokemonCard";
 import { usePokemonSearch } from "@/hooks/usePokemonSearch";
-import HomeAdvanceSearch from "./components/HomeAdvanceSearch";
 import { useAllPokemonNames } from "@/hooks/useAllPokemonNames";
 import HomePagination from "./components/HomePagination";
 import { usePokemonList } from "@/hooks/usePokemonList";
 import { useSearchParams } from "react-router";
+import { HomeAdvanceSearch } from "./components/HomeAdvanceSearch";
 
 const HomePage = () => {
   const [searchPokemon, setSearchPokemon] = useState("");
@@ -17,6 +17,7 @@ const HomePage = () => {
     searchPokemon,
     pokemonNames,
   );
+  // const searchPokemons = usePokemonListU(["fire", "flying"]);
   const [searchParams] = useSearchParams();
   const listRef = useRef<HTMLDivElement | null>(null);
   const {
@@ -30,14 +31,15 @@ const HomePage = () => {
     if (!listRef.current || searchParams.get("page") === null) return;
     listRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
   }, [searchParams]);
-
   return (
     <>
-      <HomeSearchbar
-        setSearchPokemon={setSearchPokemon}
-        pokemonNames={pokemonNames}
-      />
-      <HomeAdvanceSearch />
+      <div className="flex items-center my-4 justify-center gap-2 sm:gap-4 px-4 w-full sm:w-3/4 mx-auto">
+        <HomeSearchbar
+          setSearchPokemon={setSearchPokemon}
+          pokemonNames={pokemonNames}
+        />
+        <HomeAdvanceSearch />
+      </div>
       {isLoading ? (
         <div className="w-full md:w-1/2 xl:w-1/4">
           <PokemonCardsSkeleton length={1} />

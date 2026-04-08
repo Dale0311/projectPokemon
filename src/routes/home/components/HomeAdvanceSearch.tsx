@@ -1,138 +1,58 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from "@/components/ui/select";
 
-import { ChevronsUpDown } from "lucide-react";
 import { useState } from "react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { FilterIcon } from "lucide-react";
+import SelectType from "./SelectType";
 
-const TYPES = [
-  "Normal",
-  "Grass",
-  "Fire",
-  "Water",
-  "Electric",
-  "Bug",
-  "Flying",
-  "Rock",
-  "Poison",
-  "Ground",
-  "Ice",
-  "Fighting",
-  "Psychic",
-  "Ghost",
-  "Dragon",
-  "Dark",
-  "Steel",
-  "Fairy",
-];
-
-const REGIONS = [
-  "Kanto",
-  "Johto",
-  "Hoenn",
-  "Sinnoh",
-  "Unova",
-  "Kalos",
-  "Alola",
-  "Galar",
-  "Hisui",
-  "Paldea",
-];
-
-const HomeAdvanceSearch = () => {
-  const [open, setOpen] = useState(false);
+export function HomeAdvanceSearch() {
+  const [selectedType, setSelectedType] = useState<
+    { slot: number; name: string }[]
+  >([
+    { slot: 1, name: "" },
+    { slot: 2, name: "" },
+  ]);
 
   return (
-    <div className="relative w-full px-4 mx-auto mt-5">
-      <Collapsible open={open} onOpenChange={setOpen}>
-        {/* 🔽 Trigger */}
-        <div className="flex justify-center">
-          <CollapsibleTrigger asChild>
-            <Button variant="ghost" className="flex items-center gap-2 text-sm">
-              {open ? "Hide Advanced Search" : "Show Advanced Search"}
-              <ChevronsUpDown
-                className={`w-4 h-4 transition-transform ${
-                  open ? "rotate-180" : ""
-                }`}
-              />
-            </Button>
-          </CollapsibleTrigger>
-        </div>
-
-        {/* 🔽 Content */}
-        <CollapsibleContent>
-          <div className="border rounded-xl p-6 mt-4 space-y-6 bg-background">
-            {/* TYPE + ABILITY */}
-            <div className="grid md:grid-cols-2 gap-6">
-              {/* TYPE */}
-              <div>
-                <h3 className="mb-3 font-medium">Type</h3>
-                <div className="flex flex-wrap gap-2">
-                  {TYPES.map((type) => (
-                    <button
-                      key={type}
-                      className="px-3 py-1 rounded-full border text-sm hover:bg-muted transition"
-                    >
-                      {type}
-                    </button>
-                  ))}
-                </div>
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button variant="outline" className="rounded-xl">
+          <FilterIcon className="text-muted-foreground" />
+          Filters
+        </Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle className="mx-auto">Filters</AlertDialogTitle>
+          <AlertDialogDescription></AlertDialogDescription>
+          <div className="flex w-full gap-4">
+            {selectedType.map((t) => (
+              <div key={t.slot} className="flex-1">
+                <SelectType
+                  index={t.slot}
+                  setSelectedType={setSelectedType}
+                  currentType={t.name}
+                  currentSelectedTypes={selectedType.map((t) => t.name)}
+                />
               </div>
-
-              {/* ABILITY */}
-              <div>
-                <h3 className="mb-3 font-medium">Ability</h3>
-                <Select>
-                  <SelectTrigger>
-                    <SelectValue placeholder="All abilities" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All</SelectItem>
-                    <SelectItem value="overgrow">Overgrow</SelectItem>
-                    <SelectItem value="blaze">Blaze</SelectItem>
-                    <SelectItem value="torrent">Torrent</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-
-            {/* REGION */}
-            <div>
-              <h3 className="mb-3 font-medium">Region</h3>
-              <div className="flex flex-wrap gap-2">
-                {REGIONS.map((region) => (
-                  <button
-                    key={region}
-                    className="px-3 py-1 rounded-full border text-sm hover:bg-muted transition"
-                  >
-                    {region}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* ACTIONS */}
-            <div className="flex justify-between gap-4 pt-4">
-              <Button variant="outline">Reset</Button>
-              <Button className="flex-1 md:w-auto">Search</Button>
-            </div>
+            ))}
           </div>
-        </CollapsibleContent>
-      </Collapsible>
-    </div>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction>Continue</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
-};
-
-export default HomeAdvanceSearch;
+}

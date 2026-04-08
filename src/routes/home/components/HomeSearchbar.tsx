@@ -37,7 +37,7 @@ export default function HomeSearchbar({
   };
 
   return (
-    <div className="relative w-full sm:w-4/5 xl:w-3/4 px-4 mx-auto mt-5">
+    <div className="relative flex-1">
       <Command className="rounded-xl border shadow-md">
         <div className="flex items-center justify-between px-3">
           <div className="flex-1 ">
