@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 
-import { useState } from "react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -14,15 +13,29 @@ import {
 } from "@/components/ui/alert-dialog";
 import { FilterIcon } from "lucide-react";
 import SelectType from "./SelectType";
+import type { SetURLSearchParams } from "react-router";
 
-export function HomeAdvanceSearch() {
-  const [selectedType, setSelectedType] = useState<
-    { slot: number; name: string }[]
-  >([
-    { slot: 1, name: "" },
-    { slot: 2, name: "" },
-  ]);
+type Prop = {
+  setSearchParams: SetURLSearchParams;
+  selectedType: {
+    slot: number;
+    name: string;
+  }[];
+  setSelectedType: React.Dispatch<
+    React.SetStateAction<
+      {
+        slot: number;
+        name: string;
+      }[]
+    >
+  >;
+};
 
+export function HomeAdvanceSearch({
+  setSearchParams,
+  selectedType,
+  setSelectedType,
+}: Prop) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -42,7 +55,7 @@ export function HomeAdvanceSearch() {
                   index={t.slot}
                   setSelectedType={setSelectedType}
                   currentType={t.name}
-                  currentSelectedTypes={selectedType.map((t) => t.name)}
+                  currentSelectedTypes={selectedType.map((t) => t.name ?? null)}
                 />
               </div>
             ))}
@@ -50,7 +63,17 @@ export function HomeAdvanceSearch() {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction>Continue</AlertDialogAction>
+          <AlertDialogAction
+            onClick={() => {
+              const typeNames = selectedType
+                .filter((t) => t.name)
+                .map((t) => t.name);
+
+              setSearchParams({ type: typeNames });
+            }}
+          >
+            Apply Filter
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

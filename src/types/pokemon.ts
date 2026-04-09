@@ -90,4 +90,4 @@ export type TPokemonCardEvolution = Pick<
   TPokemon,
   "id" | "name" | "img" | "types"
 >;
-export type TPokemonCard = Omit<TPokemonCardEvolution, "types">;
+export type TPokemonCard = TPokemonCardEvolution;

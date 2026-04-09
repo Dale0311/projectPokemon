@@ -14,7 +14,7 @@ import {
   FieldTitle,
 } from "@/components/ui/field";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { ChevronDown } from "lucide-react";
+import { Check, ChevronDown } from "lucide-react";
 import { useState } from "react";
 
 const TYPES: string[] = [
@@ -74,7 +74,7 @@ const SelectType = ({
       <DialogTrigger asChild>
         <Button
           variant="outline"
-          className="text-muted-foreground w-full flex justify-between"
+          className={`${!currentType && "text-muted-foreground"} w-full flex justify-between`}
         >
           {currentType ? (
             <>
@@ -95,6 +95,7 @@ const SelectType = ({
         <div className="overflow-y-auto pr-4">
           <RadioGroup value={currentType || ""} onValueChange={handleSelect}>
             {TYPES.map((t) => {
+              const currentlyCheck = t === currentType;
               const toDisable =
                 currentSelectedTypes.filter(
                   (type) => type !== currentType,
@@ -109,7 +110,9 @@ const SelectType = ({
                 >
                   <Field orientation="horizontal" data-disabled={toDisable}>
                     <FieldContent>
-                      <FieldTitle>{t}</FieldTitle>
+                      <FieldTitle className="flex justify-between">
+                        {t} {currentlyCheck && <Check size={"15"} />}
+                      </FieldTitle>
                     </FieldContent>
                     <RadioGroupItem
                       value={t}

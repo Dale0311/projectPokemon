@@ -9,7 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 
 export function usePokemonDetails(id: number) {
   return useQuery<TPokemon>({
-    queryKey: ["pokemon", id],
+    queryKey: ["pokemonDetails", id],
     queryFn: async () => {
       await new Promise((res) => setTimeout(res, 300));
       const pokemonDetails: TPokemonResponse = await fetchPokemon(id);

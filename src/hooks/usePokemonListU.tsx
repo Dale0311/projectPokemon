@@ -1,28 +1,29 @@
-import { fetchAllPokemonByTypes } from "@/lib/api";
-import type { TVarieties } from "@/types/pokemon";
+import { fetchAllPokemonByTypes, fetchAllPokemonName } from "@/lib/api";
+import type { TPokemonAllNames, TVarieties } from "@/types/pokemon";
 import { useQuery } from "@tanstack/react-query";
 
-export function usePokemonListU(types: string[]) {
+export function usePokemonListU(types: string[] = []) {
   return useQuery({
-    queryKey: ["pokemonList", types.join("-")],
+    queryKey: ["pokemonList", types.length && types.join("-")],
     queryFn: async () => {
-      const pokemons: { pokemon: TVarieties[] }[] = await Promise.all(
-        types.map((t) => fetchAllPokemonByTypes(t)),
-      );
-      return pokemons;
-    },
-    select: (data) => {
-      if (data.length === 1) {
-        const p = data[0].pokemon;
+      if (types.length === 0) {
+        const pokemonDetails: { results: TPokemonAllNames[] } =
+          await fetchAllPokemonName();
+        return pokemonDetails.results;
+      } else {
+        const pokemons: { pokemon: TVarieties[] }[] = await Promise.all(
+          types.map((t) => fetchAllPokemonByTypes(t)),
+        );
+        if (pokemons.length === 1) {
+          const pokemon = pokemons[0].pokemon;
+          return pokemon.map((p) => p.pokemon);
+        }
+        const lookup = new Set(pokemons[0].pokemon.map((p) => p.pokemon.name));
+        const p = pokemons[1].pokemon
+          .filter((p) => lookup.has(p.pokemon.name))
+          .map((v) => v.pokemon);
         return p;
       }
-      const lookup = new Set(data[0].pokemon.map((p) => p.pokemon.name));
-      const p = data[1].pokemon
-        .filter((p) => lookup.has(p.pokemon.name))
-        .map((v) => v.pokemon);
-
-      return p;
     },
-    enabled: types.length > 0,
   });
 }
