@@ -2,6 +2,7 @@ import { usePokemon } from "@/hooks/usePokemon";
 import { cn, extractID, padID } from "@/lib/utils";
 import { Link } from "react-router";
 import PokemonCardSkeleton from "./PokemonCardSkeleton";
+import TYPE_IMAGES from "@/lib/imageMapper";
 
 type Props = {
   url: string;
@@ -11,11 +12,13 @@ export default function PokemonCard({ url }: Props) {
   const { data: pokemon, isFetching } = usePokemon(extractID(url));
   const id = padID(pokemon?.id);
   if (isFetching) return <PokemonCardSkeleton />;
+
+  const types = pokemon?.types.map((t) => extractID(t.type.url));
   return (
     <Link to={`/pokedex/${id}`}>
       <div
         className={cn(
-          "group rounded-2xl border bg-card text-card-foreground",
+          "group rounded-2xl border bg-card text-card-foreground relative",
           "hover:shadow-md transition-all duration-300",
           "cursor-pointer overflow-hidden",
         )}
@@ -36,6 +39,17 @@ export default function PokemonCard({ url }: Props) {
           <h2 className="line-clamp-2 capitalize text-sm font-medium leading-tight">
             {pokemon?.name}
           </h2>
+        </div>
+        {/* type here */}
+        <div className="flex justify-center gap-2 mt-4 flex-wrap z-10 absolute top-0 right-2">
+          {types?.map((typeId) => (
+            <img
+              key={typeId}
+              src={TYPE_IMAGES[typeId]}
+              alt={`type-${typeId}`}
+              className="w-5 h-5"
+            />
+          ))}
         </div>
       </div>
     </Link>

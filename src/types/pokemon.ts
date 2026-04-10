@@ -14,6 +14,7 @@ export type TPokemonResponse = {
   types: {
     type: {
       name: string;
+      url: string;
     };
   }[];
   abilities: {

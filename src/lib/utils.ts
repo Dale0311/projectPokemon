@@ -88,3 +88,18 @@ export function createPokemonCardData(pokemon: TPokemonAllNames) {
     img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`,
   };
 }
+
+export function createSelectedTypeDefault(
+  types: string[] = [],
+): { slot: number; name: string }[] {
+  let def = [
+    { slot: 1, name: "" },
+    { slot: 2, name: "" },
+  ];
+
+  if (types.length) {
+    def = def.map((t, i) => (types[i] ? { slot: i, name: types[i] } : t));
+  }
+
+  return def;
+}

@@ -36,8 +36,6 @@ const TYPES: string[] = [
   "Dragon",
   "Dark",
   "Fairy",
-  "Stellar",
-  "Unknown",
 ];
 
 type Props = {

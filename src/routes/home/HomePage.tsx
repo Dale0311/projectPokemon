@@ -14,6 +14,7 @@ import { usePaginationPokemon } from "@/hooks/usePaginationPokemon";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
+import { createSelectedTypeDefault } from "@/lib/utils";
 
 const HomePage = () => {
   const [searchPokemon, setSearchPokemon] = useState("");
@@ -22,21 +23,18 @@ const HomePage = () => {
     searchPokemon,
     pokemonNames,
   );
-
+  const [searchParams, setSearchParams] = useSearchParams();
   const [selectedType, setSelectedType] = useState<
     { slot: number; name: string }[]
-  >([
-    { slot: 1, name: "" },
-    { slot: 2, name: "" },
-  ]);
+  >(createSelectedTypeDefault(searchParams.getAll("type")));
 
-  const [searchParams, setSearchParams] = useSearchParams();
   const { data: pokemons } = usePokemonListU(searchParams.getAll("type") || []);
   const { currentList, page, totalPage } = usePaginationPokemon(
     pokemons ?? [],
     searchParams.get("page") || "",
   );
   const listRef = useRef<HTMLDivElement | null>(null);
+
   useEffect(() => {
     if (!listRef.current || searchParams.get("page") === null) return;
     listRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -92,63 +90,27 @@ const HomePage = () => {
         </div>
       )}
       <div ref={listRef}>
-        <PokemonCards currentList={currentList} />
-        <HomePagination
-          page={page}
-          totalPage={totalPage}
-          setSearchParams={setSearchParams}
-        />
+        {currentList.length ? (
+          <div>
+            {currentList.length > 1 ? (
+              <PokemonCards currentList={currentList} />
+            ) : (
+              <div className="w-1/4">
+                <PokemonCards currentList={currentList} />
+              </div>
+            )}
+            <HomePagination
+              page={page}
+              totalPage={totalPage}
+              setSearchParams={setSearchParams}
+            />
+          </div>
+        ) : (
+          <div className="flex justify-center mt-5">No Pokémon found</div>
+        )}
       </div>
     </>
   );
 };
-
-// const HomePage = () => {
-//   const [searchPokemon, setSearchPokemon] = useState("");
-//   const { data: pokemonNames = [] } = useAllPokemonNames();
-//   const { data: pokemon, isLoading } = usePokemonSearch(
-//     searchPokemon,
-//     pokemonNames,
-//   );
-//   const [searchParams, setSearchParams] = useSearchParams();
-//   const { data: pokemons, isFetching } = usePokemonListU(
-//     searchParams.getAll("type") || [],
-//   );
-//   const listRef = useRef<HTMLDivElement | null>(null);
-
-//   useEffect(() => {
-//     if (!listRef.current || searchParams.get("page") === null) return;
-//     listRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
-//   }, [searchParams]);
-
-//   return (
-//     <>
-//       <div className="flex items-center my-4 justify-center gap-2 sm:gap-4 px-4 w-full sm:w-3/4 mx-auto">
-//         <HomeSearchbar
-//           setSearchPokemon={setSearchPokemon}
-//           pokemonNames={pokemonNames}
-//         />
-//         <HomeAdvanceSearch setSearchParams={setSearchParams} />
-//       </div>
-//       {isLoading ? (
-//         <div className="w-full md:w-1/2 xl:w-1/4">
-//           <PokemonCardsSkeleton length={1} />
-//         </div>
-//       ) : pokemon ? (
-//         <div className="w-full md:w-1/2 xl:w-1/4 px-4 sm:px-6 lg:px-8 py-5 mt-4">
-//           <PokemonCard pokemon={pokemon} />
-//         </div>
-//       ) : (
-//         <div ref={listRef}>
-//           <PokemonCards
-//             pokemons={pokemon || pokemons}
-//             isFetching={isFetching}
-//           />
-//           <HomePagination page={page} totalPage={totalPage} />
-//         </div>
-//       )}
-//     </>
-//   );
-// };
 
 export default HomePage;
