@@ -14,13 +14,20 @@ import {
 import { FilterIcon } from "lucide-react";
 import SelectType from "./SelectType";
 import type { SetURLSearchParams } from "react-router";
+import { Field, FieldLabel } from "@/components/ui/field";
+import { Switch } from "@/components/ui/switch";
+import { createSelectedTypeDefault } from "@/lib/utils";
 
 type Prop = {
   setSearchParams: SetURLSearchParams;
+  strict: boolean;
+  setStrict: React.Dispatch<React.SetStateAction<boolean>>;
   selectedType: {
     slot: number;
     name: string;
   }[];
+
+  searchParams: URLSearchParams;
   setSelectedType: React.Dispatch<
     React.SetStateAction<
       {
@@ -32,10 +39,15 @@ type Prop = {
 };
 
 export function HomeAdvanceSearch({
+  searchParams,
   setSearchParams,
+  strict,
+  setStrict,
   selectedType,
   setSelectedType,
 }: Prop) {
+  const bothTypeFilled = selectedType.every((t) => t.name);
+
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -59,17 +71,68 @@ export function HomeAdvanceSearch({
                 />
               </div>
             ))}
+
+            <Field
+              orientation="horizontal"
+              data-disabled={!bothTypeFilled}
+              className="w-fit relative"
+            >
+              <Switch
+                id="strictType"
+                disabled={!bothTypeFilled}
+                onCheckedChange={(val) => setStrict(val)}
+                defaultChecked={strict}
+              />
+              <FieldLabel htmlFor="strictType" className="group">
+                Strict
+                <div>
+                  {bothTypeFilled && (
+                    <FieldLabel
+                      htmlFor="strictType"
+                      className="p-2 w-40 text-wrap bg-accent-foreground text-accent rounded absolute opacity-0 group-hover:opacity-100 left-0 -top-20 transition-all duration-200 ease-in-out"
+                    >
+                      enable strict to filter pokemon that has both types.
+                    </FieldLabel>
+                  )}
+                </div>
+              </FieldLabel>
+            </Field>
           </div>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel
+            onClick={() => {
+              // set types to default if searchparams has no types
+              const existingType = createSelectedTypeDefault(
+                searchParams.getAll("type"),
+              );
+              const strict = Boolean(searchParams.get("Strict"));
+
+              setStrict(strict);
+              setSelectedType(existingType);
+            }}
+          >
+            Cancel
+          </AlertDialogCancel>
           <AlertDialogAction
             onClick={() => {
               const typeNames = selectedType
                 .filter((t) => t.name)
                 .map((t) => t.name);
 
-              setSearchParams({ type: typeNames });
+              setSearchParams((searchParams) => {
+                const params = new URLSearchParams(searchParams);
+                params.delete("type");
+                params.delete("Strict");
+                typeNames.forEach((t) => {
+                  if (t) {
+                    params.append("type", t);
+                  }
+                });
+
+                if (strict) params.set("Strict", strict + "");
+                return params;
+              });
             }}
           >
             Apply Filter

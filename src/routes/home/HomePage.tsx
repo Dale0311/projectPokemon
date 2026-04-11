@@ -2,11 +2,9 @@ import PokemonCards from "@/components/PokemonCards";
 import PokemonCardsSkeleton from "@/components/PokemonCardsSkeleton";
 import { useEffect, useRef, useState, type ReactElement } from "react";
 import HomeSearchbar from "./components/HomeSearchbar";
-import PokemonCard from "@/components/PokemonCard";
 import { usePokemonSearch } from "@/hooks/usePokemonSearch";
 import { useAllPokemonNames } from "@/hooks/useAllPokemonNames";
 import HomePagination from "./components/HomePagination";
-import { usePokemonList } from "@/hooks/usePokemonList";
 import { useSearchParams } from "react-router";
 import { HomeAdvanceSearch } from "./components/HomeAdvanceSearch";
 import { usePokemonListU } from "@/hooks/usePokemonListU";
@@ -28,13 +26,18 @@ const HomePage = () => {
     { slot: number; name: string }[]
   >(createSelectedTypeDefault(searchParams.getAll("type")));
 
-  const { data: pokemons } = usePokemonListU(searchParams.getAll("type") || []);
+  const { data: pokemons, isFetching } = usePokemonListU(
+    searchParams.getAll("type") || [],
+    Boolean(searchParams.get("Strict")),
+  );
+  const [strict, setStrict] = useState(Boolean(searchParams.get("Strict")));
   const { currentList, page, totalPage } = usePaginationPokemon(
     pokemons ?? [],
     searchParams.get("page") || "",
   );
   const listRef = useRef<HTMLDivElement | null>(null);
 
+  // scroll after the user change the current page
   useEffect(() => {
     if (!listRef.current || searchParams.get("page") === null) return;
     listRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -47,20 +50,26 @@ const HomePage = () => {
     if (k !== "page")
       activeFilters.push(
         <Badge key={v} variant={"outline"}>
-          {v}
+          {k === "Strict" ? k : v}
           <Button
             variant={"ghost"}
             size={"xs"}
             onClick={() => {
               setSearchParams((searchParams) => {
-                searchParams.delete(k, v);
-                return searchParams;
+                const params = new URLSearchParams(searchParams);
+                params.delete("page");
+                params.delete(k, v);
+                return params;
               });
-              setSelectedType((prev) =>
-                prev.map((p) =>
-                  p.name === v ? { slot: p.slot, name: "" } : p,
-                ),
-              );
+              if (k === "Strict") {
+                setStrict(false);
+              } else if (k === "type") {
+                setSelectedType((prev) =>
+                  prev.map((p) =>
+                    p.name === v ? { slot: p.slot, name: "" } : p,
+                  ),
+                );
+              }
             }}
           >
             <X />
@@ -77,8 +86,11 @@ const HomePage = () => {
         />
         <HomeAdvanceSearch
           selectedType={selectedType}
+          strict={strict}
+          setStrict={setStrict}
           setSelectedType={setSelectedType}
           setSearchParams={setSearchParams}
+          searchParams={searchParams}
         />
       </div>
       {activeFilters.length > 0 && (
@@ -89,26 +101,32 @@ const HomePage = () => {
           </div>
         </div>
       )}
-      <div ref={listRef}>
-        {currentList.length ? (
-          <div>
-            {currentList.length > 1 ? (
-              <PokemonCards currentList={currentList} />
-            ) : (
-              <div className="w-1/4">
+      {isFetching ? (
+        <PokemonCardsSkeleton length={40} />
+      ) : (
+        <div ref={listRef}>
+          {currentList.length ? (
+            <div>
+              {currentList.length > 2 ? (
                 <PokemonCards currentList={currentList} />
-              </div>
-            )}
-            <HomePagination
-              page={page}
-              totalPage={totalPage}
-              setSearchParams={setSearchParams}
-            />
-          </div>
-        ) : (
-          <div className="flex justify-center mt-5">No Pokémon found</div>
-        )}
-      </div>
+              ) : (
+                <div
+                  className={`${currentList.length === 2 ? "xl:w-1/2" : "w-1/2 md:w-1/4"}`}
+                >
+                  <PokemonCards currentList={currentList} />
+                </div>
+              )}
+              <HomePagination
+                page={page}
+                totalPage={totalPage}
+                setSearchParams={setSearchParams}
+              />
+            </div>
+          ) : (
+            <div className="flex justify-center mt-5">No Pokémon found</div>
+          )}
+        </div>
+      )}
     </>
   );
 };
