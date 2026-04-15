@@ -25,15 +25,15 @@ const HomePage = () => {
   const [selectedType, setSelectedType] = useState<
     { slot: number; name: string }[]
   >(createSelectedTypeDefault(searchParams.getAll("type")));
+  const [strict, setStrict] = useState(Boolean(searchParams.get("Strict")));
 
   const { data: pokemons, isFetching } = usePokemonListU(
     searchParams.getAll("type") || [],
-    Boolean(searchParams.get("Strict")),
   );
-  const [strict, setStrict] = useState(Boolean(searchParams.get("Strict")));
   const { currentList, page, totalPage } = usePaginationPokemon(
     pokemons ?? [],
     searchParams.get("page") || "",
+    Boolean(searchParams.get("Strict")),
   );
   const listRef = useRef<HTMLDivElement | null>(null);
 
@@ -77,6 +77,7 @@ const HomePage = () => {
         </Badge>,
       );
   });
+
   return (
     <>
       <div className="flex items-center my-4 justify-center gap-2 sm:gap-4 px-4 w-full sm:w-3/4 mx-auto">

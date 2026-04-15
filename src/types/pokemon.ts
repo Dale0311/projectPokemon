@@ -1,4 +1,9 @@
 export type TPokemonAllNames = { name: string; url: string };
+export type TPokemonReturnDataShape = {
+  name: string;
+  url: string;
+  type?: string[];
+};
 export type TPokemonResponse = {
   id: number;
   name: string;
