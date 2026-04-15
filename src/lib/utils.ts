@@ -88,7 +88,10 @@ export function createPokemonCardData(pokemon: TPokemonAllNames) {
     img: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`,
   };
 }
-
+export function createStaticImg(id: number) {
+  const url = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
+  return url;
+}
 export function createSelectedTypeDefault(
   types: string[] = [],
 ): { slot: number; name: string }[] {

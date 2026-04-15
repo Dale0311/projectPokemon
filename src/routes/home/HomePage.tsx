@@ -2,8 +2,7 @@ import PokemonCards from "@/components/PokemonCards";
 import PokemonCardsSkeleton from "@/components/PokemonCardsSkeleton";
 import { useEffect, useRef, useState, type ReactElement } from "react";
 import HomeSearchbar from "./components/HomeSearchbar";
-import { usePokemonSearch } from "@/hooks/usePokemonSearch";
-import { useAllPokemonNames } from "@/hooks/useAllPokemonNames";
+
 import HomePagination from "./components/HomePagination";
 import { useSearchParams } from "react-router";
 import { HomeAdvanceSearch } from "./components/HomeAdvanceSearch";
@@ -15,12 +14,6 @@ import { X } from "lucide-react";
 import { createSelectedTypeDefault } from "@/lib/utils";
 
 const HomePage = () => {
-  const [searchPokemon, setSearchPokemon] = useState("");
-  const { data: pokemonNames = [] } = useAllPokemonNames();
-  const { data: pokemon, isLoading } = usePokemonSearch(
-    searchPokemon,
-    pokemonNames,
-  );
   const [searchParams, setSearchParams] = useSearchParams();
   const [selectedType, setSelectedType] = useState<
     { slot: number; name: string }[]
@@ -45,7 +38,6 @@ const HomePage = () => {
 
   // filter
   const activeFilters: ReactElement[] = [];
-
   searchParams.forEach((v, k) => {
     if (k !== "page")
       activeFilters.push(
@@ -81,10 +73,7 @@ const HomePage = () => {
   return (
     <>
       <div className="flex items-center my-4 justify-center gap-2 sm:gap-4 px-4 w-full sm:w-3/4 mx-auto">
-        <HomeSearchbar
-          setSearchPokemon={setSearchPokemon}
-          pokemonNames={pokemonNames}
-        />
+        <HomeSearchbar />
         <HomeAdvanceSearch
           selectedType={selectedType}
           strict={strict}

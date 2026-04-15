@@ -9,31 +9,36 @@ import {
 } from "@/components/ui/command";
 
 import { X } from "lucide-react";
-import type { TPokemonAllNames } from "@/types/pokemon";
+import { useAllPokemonNames } from "@/hooks/useAllPokemonNames";
+import { Link, useNavigate } from "react-router";
+import { createStaticImg, extractID } from "@/lib/utils";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
-export default function HomeSearchbar({
-  setSearchPokemon,
-  pokemonNames,
-}: {
-  setSearchPokemon: React.Dispatch<React.SetStateAction<string>>;
-  pokemonNames: TPokemonAllNames[];
-}) {
+export default function HomeSearchbar() {
+  const { data: pokemonNames = [] } = useAllPokemonNames();
   const [query, setQuery] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
-
-  const filtered = pokemonNames
-    ?.filter((item) => item.name.toLowerCase().includes(query.toLowerCase()))
-    .slice(0, 5);
+  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+  const filtered = pokemonNames.filter((item) =>
+    item.name.toLowerCase().includes(query.toLowerCase()),
+  );
 
   const handleSelect = async (value: string) => {
-    setQuery(value);
+    const pokemon = pokemonNames.find((p) => p.name === value);
+    if (!pokemon) return;
+    navigate(`/pokedex/${extractID(pokemon.url)}`);
     setShowSuggestions(false);
-    setSearchPokemon(value);
   };
 
   const clearSelect = () => {
     setQuery("");
-    setSearchPokemon("");
   };
 
   return (
@@ -70,9 +75,9 @@ export default function HomeSearchbar({
             <CommandEmpty>No Pokémon found.</CommandEmpty>
 
             <CommandGroup>
-              {filtered?.map((item) => (
+              {filtered.slice(0, 5)?.map((item) => (
                 <CommandItem
-                  key={item.name}
+                  key={item.url}
                   value={item.name}
                   onSelect={handleSelect}
                 >
@@ -80,6 +85,49 @@ export default function HomeSearchbar({
                 </CommandItem>
               ))}
             </CommandGroup>
+            {filtered.length > 5 && (
+              <>
+                <hr />
+                <CommandGroup forceMount>
+                  <CommandItem value="view-all" onSelect={() => setOpen(true)}>
+                    View all result
+                  </CommandItem>
+                  <Dialog open={open} onOpenChange={setOpen}>
+                    <DialogContent className="h-[80vh] max-w-lg flex flex-col">
+                      <DialogHeader>
+                        <DialogTitle className="mx-auto">
+                          All pokemons
+                        </DialogTitle>
+                      </DialogHeader>
+                      <DialogDescription></DialogDescription>
+                      {/* Scrollable content */}
+                      <div className="flex-1 overflow-y-auto space-y-2 pr-2">
+                        {filtered.map((pokemon) => (
+                          <Link
+                            to={`/pokedex/${extractID(pokemon.url)}`}
+                            key={pokemon.name}
+                            className="bg-accent opacity-90 hover:opacity-100 flex items-center p-4 gap-4 rounded"
+                          >
+                            {/* Image */}
+                            <div className="w-12 h-12">
+                              <img
+                                src={createStaticImg(extractID(pokemon.url))}
+                                alt={pokemon.name}
+                                className="w-full h-full object-contain"
+                              />
+                            </div>
+                            {/* Name */}
+                            <div className="font-semibold capitalize">
+                              {pokemon.name}
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+                </CommandGroup>
+              </>
+            )}
           </CommandList>
         )}
       </Command>
