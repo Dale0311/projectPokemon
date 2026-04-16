@@ -12,7 +12,7 @@ export default function RootLayout() {
 
   useEffect(() => {
     queryClient.prefetchQuery({
-      queryKey: ["pokemonList"],
+      queryKey: ["pokemon-list"],
       queryFn: async () => {
         const pokemonDetails: { results: TPokemonAllNames[] } =
           await fetchAllPokemonName();

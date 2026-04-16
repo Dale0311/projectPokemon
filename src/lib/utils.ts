@@ -3,6 +3,7 @@ import type {
   TPokemon,
   TPokemonAllNames,
   TPokemonResponse,
+  TPokemonReturnDataShape,
   TPokemonSpeciesResponse,
 } from "@/types/pokemon";
 import { clsx, type ClassValue } from "clsx";
@@ -105,4 +106,33 @@ export function createSelectedTypeDefault(
   }
 
   return def;
+}
+
+export function mergePokemonByType(
+  data: {
+    pokemon: {
+      pokemon: TPokemonReturnDataShape;
+    }[];
+    name: string;
+  }[],
+) {
+  const z = data.flatMap((t) => {
+    return t.pokemon.map((p) => ({
+      pokemon: p.pokemon,
+      type: t.name,
+    }));
+  });
+
+  const mapper = new Map<string, TPokemonReturnDataShape>();
+  z.forEach((p) => {
+    if (!mapper.has(p.pokemon.name)) {
+      return mapper.set(p.pokemon.name, {
+        ...p.pokemon,
+        type: [p.type],
+      });
+    }
+    mapper.get(p.pokemon.name)?.type?.push(p.type);
+  });
+
+  return Array.from(mapper.values());
 }

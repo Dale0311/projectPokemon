@@ -17,6 +17,7 @@ import type { SetURLSearchParams } from "react-router";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Switch } from "@/components/ui/switch";
 import { createSelectedTypeDefault } from "@/lib/utils";
+import SelectGen from "./SelectGen";
 
 type Prop = {
   setSearchParams: SetURLSearchParams;
@@ -26,7 +27,8 @@ type Prop = {
     slot: number;
     name: string;
   }[];
-
+  gen: string;
+  setGen: React.Dispatch<React.SetStateAction<string>>;
   searchParams: URLSearchParams;
   setSelectedType: React.Dispatch<
     React.SetStateAction<
@@ -45,6 +47,8 @@ export function HomeAdvanceSearch({
   setStrict,
   selectedType,
   setSelectedType,
+  gen,
+  setGen,
 }: Prop) {
   const bothTypeFilled = selectedType.every((t) => t.name);
 
@@ -60,43 +64,49 @@ export function HomeAdvanceSearch({
         <AlertDialogHeader>
           <AlertDialogTitle className="mx-auto">Filters</AlertDialogTitle>
           <AlertDialogDescription></AlertDialogDescription>
-          <div className="flex w-full gap-4">
-            {selectedType.map((t) => (
-              <div key={t.slot} className="flex-1">
-                <SelectType
-                  index={t.slot}
-                  setSelectedType={setSelectedType}
-                  currentType={t.name}
-                  currentSelectedTypes={selectedType.map((t) => t.name ?? null)}
-                />
-              </div>
-            ))}
-
-            <Field
-              orientation="horizontal"
-              data-disabled={!bothTypeFilled}
-              className="w-fit relative"
-            >
-              <Switch
-                id="strictType"
-                disabled={!bothTypeFilled}
-                onCheckedChange={(val) => setStrict(val)}
-                defaultChecked={strict}
-              />
-              <FieldLabel htmlFor="strictType" className="group">
-                Strict
-                <div>
-                  {bothTypeFilled && (
-                    <FieldLabel
-                      htmlFor="strictType"
-                      className="p-2 w-40 text-wrap bg-accent-foreground text-accent rounded absolute opacity-0 group-hover:opacity-100 left-0 -top-20 transition-all duration-200 ease-in-out"
-                    >
-                      enable strict to filter pokemon that has both types.
-                    </FieldLabel>
-                  )}
+          <div className="space-y-4 w-full">
+            <div className="flex w-full gap-4">
+              {selectedType.map((t) => (
+                <div key={t.slot} className="flex-1">
+                  <SelectType
+                    index={t.slot}
+                    setSelectedType={setSelectedType}
+                    currentType={t.name}
+                    currentSelectedTypes={selectedType.map(
+                      (t) => t.name ?? null,
+                    )}
+                  />
                 </div>
-              </FieldLabel>
-            </Field>
+              ))}
+              <Field
+                orientation="horizontal"
+                data-disabled={!bothTypeFilled}
+                className="w-fit relative"
+              >
+                <Switch
+                  id="strictType"
+                  disabled={!bothTypeFilled}
+                  onCheckedChange={(val) => setStrict(val)}
+                  defaultChecked={strict}
+                />
+                <FieldLabel htmlFor="strictType" className="group">
+                  Strict
+                  <div>
+                    {bothTypeFilled && (
+                      <FieldLabel
+                        htmlFor="strictType"
+                        className="p-2 w-40 text-wrap bg-accent-foreground text-accent rounded absolute opacity-0 group-hover:opacity-100 left-0 -top-20 transition-all duration-200 ease-in-out"
+                      >
+                        enable strict to filter pokemon that has both types.
+                      </FieldLabel>
+                    )}
+                  </div>
+                </FieldLabel>
+              </Field>
+            </div>
+            <div className="w-full">
+              <SelectGen gen={gen} setGen={setGen} />
+            </div>
           </div>
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -107,9 +117,11 @@ export function HomeAdvanceSearch({
                 searchParams.getAll("type"),
               );
               const strict = Boolean(searchParams.get("Strict"));
+              const currentGen = searchParams.get("gen");
 
               setStrict(strict);
               setSelectedType(existingType);
+              setGen(currentGen || "0");
             }}
           >
             Cancel
@@ -124,13 +136,15 @@ export function HomeAdvanceSearch({
                 const params = new URLSearchParams(searchParams);
                 params.delete("type");
                 params.delete("Strict");
+                params.delete("gen");
                 typeNames.forEach((t) => {
                   if (t) {
                     params.append("type", t);
                   }
                 });
-
                 if (strict) params.set("Strict", strict + "");
+                if (+gen > 0) params.set("gen", gen);
+
                 return params;
               });
             }}

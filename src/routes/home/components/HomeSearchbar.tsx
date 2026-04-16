@@ -40,7 +40,6 @@ export default function HomeSearchbar() {
   const clearSelect = () => {
     setQuery("");
   };
-
   return (
     <div className="relative flex-1">
       <Command className="rounded-xl border shadow-md">
@@ -69,7 +68,7 @@ export default function HomeSearchbar() {
             className="
               absolute top-full left-0 w-full mt-2
               rounded-xl border bg-background shadow-md
-              z-50 max-h-60 overflow-y-auto 
+              z-50 max-h-78.5 overflow-y-auto 
             "
           >
             <CommandEmpty>No Pokémon found.</CommandEmpty>
@@ -81,7 +80,22 @@ export default function HomeSearchbar() {
                   value={item.name}
                   onSelect={handleSelect}
                 >
-                  {item.name}
+                  <Link
+                    to={`/pokedex/${extractID(item.url)}`}
+                    key={item.name}
+                    className="opacity-90 flex items-center p-2 gap-4 w-full rounded"
+                  >
+                    {/* Image */}
+                    <div className="w-6 h-6">
+                      <img
+                        src={createStaticImg(extractID(item.url))}
+                        alt={item.name}
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
+                    {/* Name */}
+                    <div className="font-semibold capitalize">{item.name}</div>
+                  </Link>
                 </CommandItem>
               ))}
             </CommandGroup>
@@ -101,18 +115,19 @@ export default function HomeSearchbar() {
                       </DialogHeader>
                       <DialogDescription></DialogDescription>
                       {/* Scrollable content */}
-                      <div className="flex-1 overflow-y-auto space-y-2 pr-2">
+                      <div className="flex-1 overflow-y-auto space-y-2 pr-4">
                         {filtered.map((pokemon) => (
                           <Link
                             to={`/pokedex/${extractID(pokemon.url)}`}
                             key={pokemon.name}
-                            className="bg-accent opacity-90 hover:opacity-100 flex items-center p-4 gap-4 rounded"
+                            className="hover:bg-accent opacity-90 flex items-center p-4 gap-4 rounded"
                           >
                             {/* Image */}
                             <div className="w-12 h-12">
                               <img
                                 src={createStaticImg(extractID(pokemon.url))}
                                 alt={pokemon.name}
+                                loading="lazy"
                                 className="w-full h-full object-contain"
                               />
                             </div>

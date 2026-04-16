@@ -6,7 +6,7 @@ import HomeSearchbar from "./components/HomeSearchbar";
 import HomePagination from "./components/HomePagination";
 import { useSearchParams } from "react-router";
 import { HomeAdvanceSearch } from "./components/HomeAdvanceSearch";
-import { usePokemonListU } from "@/hooks/usePokemonListU";
+import { usePokemonListU } from "@/hooks/usePokemonList";
 import { usePaginationPokemon } from "@/hooks/usePaginationPokemon";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -18,10 +18,12 @@ const HomePage = () => {
   const [selectedType, setSelectedType] = useState<
     { slot: number; name: string }[]
   >(createSelectedTypeDefault(searchParams.getAll("type")));
+  const [gen, setGen] = useState(searchParams.get("gen") || "0");
   const [strict, setStrict] = useState(Boolean(searchParams.get("Strict")));
 
   const { data: pokemons, isFetching } = usePokemonListU(
     searchParams.getAll("type") || [],
+    searchParams.get("gen") || "0",
   );
   const { currentList, page, totalPage } = usePaginationPokemon(
     pokemons ?? [],
@@ -42,7 +44,7 @@ const HomePage = () => {
     if (k !== "page")
       activeFilters.push(
         <Badge key={v} variant={"outline"}>
-          {k === "Strict" ? k : v}
+          {k === "Strict" ? k : k === "gen" ? "Gen " + v : v}
           <Button
             variant={"ghost"}
             size={"xs"}
@@ -51,6 +53,9 @@ const HomePage = () => {
                 const params = new URLSearchParams(searchParams);
                 params.delete("page");
                 params.delete(k, v);
+                if (k === "type") {
+                  params.delete("Strict");
+                }
                 return params;
               });
               if (k === "Strict") {
@@ -61,6 +66,9 @@ const HomePage = () => {
                     p.name === v ? { slot: p.slot, name: "" } : p,
                   ),
                 );
+                setStrict(false);
+              } else if (k === "gen") {
+                setGen("0");
               }
             }}
           >
@@ -81,6 +89,8 @@ const HomePage = () => {
           setSelectedType={setSelectedType}
           setSearchParams={setSearchParams}
           searchParams={searchParams}
+          gen={gen}
+          setGen={setGen}
         />
       </div>
       {activeFilters.length > 0 && (

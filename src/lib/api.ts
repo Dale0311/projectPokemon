@@ -42,3 +42,7 @@ export async function fetchAllPokemonByTypes(type: string) {
   const data = await axiosInstance.get(`/type/${type}`);
   return data.data;
 }
+export async function fetchAllPokemonByGen(gen: string) {
+  const data = await axiosInstance.get(`/generation/${gen}`);
+  return data.data;
+}

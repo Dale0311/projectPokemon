@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 
 export function useAllPokemonNames() {
   return useQuery({
-    queryKey: ["allPokemonNames"],
+    queryKey: ["all-pokemon-names"],
     queryFn: async () => {
       const pokemonDetails: { results: TPokemonAllNames[] } =
         await fetchAllPokemonName();
