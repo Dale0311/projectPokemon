@@ -15,8 +15,8 @@ export function usePokemonListU(types: string[] = [], gen: string = "0") {
   return useQuery({
     queryKey: [
       "pokemon-list",
-      hasGen ? `gen-${parsedGen}` : "all-gen",
-      hasTypes ? [...types].sort().join("-") : "all-type",
+      hasGen ? `gen-${parsedGen}` : "gen-all",
+      hasTypes ? [...types].sort().join("-") : "type-all",
     ],
     queryFn: async () => {
       if (!hasGen && !hasTypes) {

@@ -41,7 +41,7 @@ export default function HomeSearchbar() {
     setQuery("");
   };
   return (
-    <div className="relative flex-1">
+    <div className="relative flex-1 w-full">
       <Command className="rounded-xl border shadow-md">
         <div className="flex items-center justify-between px-3">
           <div className="flex-1 ">

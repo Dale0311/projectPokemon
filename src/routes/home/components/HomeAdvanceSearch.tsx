@@ -55,7 +55,7 @@ export function HomeAdvanceSearch({
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline" className="rounded-xl">
+        <Button variant="outline" className="rounded-xl w-full md:w-min">
           <FilterIcon className="text-muted-foreground" />
           Filters
         </Button>
@@ -64,8 +64,8 @@ export function HomeAdvanceSearch({
         <AlertDialogHeader>
           <AlertDialogTitle className="mx-auto">Filters</AlertDialogTitle>
           <AlertDialogDescription></AlertDialogDescription>
-          <div className="space-y-4 w-full">
-            <div className="flex w-full gap-4">
+          <div className="w-full flex flex-col-reverse md:flex-col space-y-4">
+            <div className="flex flex-col md:flex-row w-full gap-4">
               {selectedType.map((t) => (
                 <div key={t.slot} className="flex-1">
                   <SelectType
@@ -81,7 +81,7 @@ export function HomeAdvanceSearch({
               <Field
                 orientation="horizontal"
                 data-disabled={!bothTypeFilled}
-                className="w-fit relative"
+                className="w-fit relative place-self-end md:place-self-auto"
               >
                 <Switch
                   id="strictType"
@@ -104,12 +104,12 @@ export function HomeAdvanceSearch({
                 </FieldLabel>
               </Field>
             </div>
-            <div className="w-full">
+            <div className="w-full mb-4 md:mb-0">
               <SelectGen gen={gen} setGen={setGen} />
             </div>
           </div>
         </AlertDialogHeader>
-        <AlertDialogFooter>
+        <AlertDialogFooter className="flex flex-row justify-end md:flex-col">
           <AlertDialogCancel
             onClick={() => {
               // set types to default if searchparams has no types

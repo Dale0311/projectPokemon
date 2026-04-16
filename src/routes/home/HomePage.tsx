@@ -80,7 +80,7 @@ const HomePage = () => {
 
   return (
     <>
-      <div className="flex items-center my-4 justify-center gap-2 sm:gap-4 px-4 w-full sm:w-3/4 mx-auto">
+      <div className="flex flex-col md:flex-row items-center my-4 justify-center gap-2 sm:gap-4 px-4 w-full sm:w-3/4 mx-auto">
         <HomeSearchbar />
         <HomeAdvanceSearch
           selectedType={selectedType}

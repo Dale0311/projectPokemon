@@ -14,6 +14,7 @@ import {
   FieldTitle,
 } from "@/components/ui/field";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import TYPE_IMAGES from "@/lib/imageMapper";
 import { Check, ChevronDown } from "lucide-react";
 import { useState } from "react";
 
@@ -75,9 +76,19 @@ const SelectType = ({
           className={`${!currentType && "text-muted-foreground"} w-full flex justify-between`}
         >
           {currentType ? (
-            <>
-              {currentType} <ChevronDown />
-            </>
+            <div className="flex items-center justify-between  w-full">
+              <div className="flex space-x-2">
+                <img
+                  src={`${TYPE_IMAGES[TYPES.indexOf(currentType) + 1]}`}
+                  alt={currentType}
+                  className="w-6 h-6"
+                />
+                <p>{currentType}</p>
+              </div>
+              <div>
+                <ChevronDown />
+              </div>
+            </div>
           ) : (
             <>
               Select Type <ChevronDown />
@@ -92,7 +103,7 @@ const SelectType = ({
         </DialogHeader>
         <div className="overflow-y-auto pr-4">
           <RadioGroup value={currentType || ""} onValueChange={handleSelect}>
-            {TYPES.map((t) => {
+            {TYPES.map((t, i) => {
               const currentlyCheck = t === currentType;
               const toDisable =
                 currentSelectedTypes.filter(
@@ -109,6 +120,11 @@ const SelectType = ({
                   <Field orientation="horizontal" data-disabled={toDisable}>
                     <FieldContent>
                       <FieldTitle className="flex justify-between">
+                        <img
+                          src={`${TYPE_IMAGES[i + 1]}`}
+                          alt={t}
+                          className="w-8 h-8"
+                        />
                         {t} {currentlyCheck && <Check size={"15"} />}
                       </FieldTitle>
                     </FieldContent>
